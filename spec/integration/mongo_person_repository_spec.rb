@@ -1,5 +1,5 @@
 require 'mongo'
-require 'kobza_crm/bson_id_generator'
+require 'mongobzar'
 require 'kobza_crm/persistence/mongo_person_repository'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
@@ -13,7 +13,7 @@ module KobzaCRM
         let(:connection) { Mongo::Connection.new }
         let(:db) { connection.db(database_name) }
         let(:database_name) { 'kobza_crm_test' }
-        let(:id_generator) { BSONIdGenerator.new }
+        let(:id_generator) { Mongobzar::BSONIdGenerator.new }
         let(:subject) { MongoPersonRepository.new(id_generator, database_name) }
         let(:sample_email_address) { 'test1@example.com' }
         let(:sample_url) { 'test1.example.com/page' }

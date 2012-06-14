@@ -4,7 +4,7 @@ module KobzaCRM
   module Test
     describe AddOrganizationTransaction do
       before do
-        id_generator = BSONIdGenerator.new
+        id_generator = Mongobzar::BSONIdGenerator.new
         @organization_repository = InMemoryOrganizationRepository.new(id_generator)
       end
 

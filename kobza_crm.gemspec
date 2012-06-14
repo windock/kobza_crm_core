@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = KobzaCrm::VERSION
 
-  gem.add_dependency 'bson_ext'
   gem.add_dependency 'mongobzar'
 
   gem.add_development_dependency 'rspec'

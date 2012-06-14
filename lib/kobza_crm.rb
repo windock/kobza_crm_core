@@ -1,5 +1,4 @@
 require 'kobza_crm/version'
-require 'kobza_crm/bson_id_generator'
 
 require 'kobza_crm/person'
 require 'kobza_crm/organization'
