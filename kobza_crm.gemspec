@@ -16,5 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = KobzaCrm::VERSION
 
   gem.add_dependency 'bson_ext'
+  gem.add_dependency 'mongobzar'
+
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'debugger'
 end
