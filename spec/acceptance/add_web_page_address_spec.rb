@@ -5,7 +5,7 @@ module KobzaCRM
     describe AddWebPageAddressTransaction do
       before do
         id_generator = BSONIdGenerator.new
-        @person_repository = PersonRepository.new(id_generator)
+        @person_repository = InMemoryPersonRepository.new(id_generator)
         t = AddPersonTransaction.new('Bob', @person_repository)
         t.execute
         @person = t.person

@@ -1,10 +1,10 @@
-require 'kobza_crm/person_repository'
+require 'kobza_crm/in_memory_person_repository'
 require 'kobza_crm/person'
 
 module KobzaCRM
   module Test
-    describe PersonRepository do
-      let(:subject) { PersonRepository.new(id_generator) }
+    describe InMemoryPersonRepository do
+      let(:subject) { InMemoryPersonRepository.new(id_generator) }
       let(:next_id) { 1 }
       let(:id_generator) { stub(next_id: next_id) }
       let(:new_person) { Struct.new(:id).new }

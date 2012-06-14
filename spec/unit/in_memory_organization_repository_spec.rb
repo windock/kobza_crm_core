@@ -1,9 +1,9 @@
-require 'kobza_crm/organization_repository'
+require 'kobza_crm/in_memory_organization_repository'
 
 module KobzaCRM
   module Test
-    describe OrganizationRepository do
-      let(:subject) { OrganizationRepository.new(id_generator) }
+    describe InMemoryOrganizationRepository do
+      let(:subject) { InMemoryOrganizationRepository.new(id_generator) }
       let(:next_id) { 1 }
       let(:id_generator) { stub(next_id: next_id) }
       let(:new_organization) { Struct.new(:id).new }

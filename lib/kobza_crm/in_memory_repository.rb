@@ -1,5 +1,5 @@
 module KobzaCRM
-  class Repository
+  class InMemoryRepository
     def initialize(id_generator)
       @id_generator = id_generator
       @entities = {}
