@@ -12,5 +12,11 @@ module KobzaCRM
     def add_address(address)
       @addresses << address
     end
+
+    def ==(o)
+      id == o.id &&
+      name == o.name &&
+      addresses == o.addresses
+    end
   end
 end

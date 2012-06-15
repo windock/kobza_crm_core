@@ -15,6 +15,14 @@ module KobzaCRM
             dto['type'] = 'web_page'
           end
         end
+
+        def build_new(dto={})
+          if dto['type'] == 'web_page'
+            WebPageAddress.new(dto['url'])
+          elsif dto['type'] == 'email'
+            EmailAddress.new(dto['email_address'])
+          end
+        end
       end
 
       class PersonMapper < Mongobzar::Mapping::Mapper
@@ -30,15 +38,34 @@ module KobzaCRM
             person.addresses
           )
         end
+
+        def build_new(dto={})
+          Person.new(dto['name'])
+        end
+
+        def build_domain_object!(person, dto)
+          @address_mapper.build_domain_objects(dto['addresses']).each do |address|
+            person.add_address(address)
+          end
+        end
       end
 
       def initialize(id_generator, database_name)
         @database_name = database_name
         @mapper = PersonMapper.new(@database_name)
+        @mapper.id_generator = id_generator
       end
 
       def add(domain_object)
         @mapper.insert(domain_object)
+      end
+
+      def find(id)
+        @mapper.find(id)
+      end
+
+      def all
+        @mapper.all
       end
 
       def clear_everything!
