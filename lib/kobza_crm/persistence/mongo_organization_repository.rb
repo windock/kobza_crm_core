@@ -1,24 +1,24 @@
-require 'kobza_crm/person'
+require 'kobza_crm/organization'
 require 'kobza_crm/persistence/party_mapper'
 require 'kobza_crm/persistence/mongo_repository'
 
 module KobzaCRM
   module Persistence
-    class MongoPersonRepository < MongoRepository
-      class PersonMapper < PartyMapper
+    class MongoOrganizationRepository < MongoRepository
+      class OrganizationMapper < PartyMapper
         def initialize(database_name)
           super
-          set_mongo_collection('people')
+          set_mongo_collection('organizations')
         end
 
         def build_new(dto={})
-          Person.new(dto['name'])
+          Organization.new(dto['name'])
         end
       end
 
       def initialize(id_generator, database_name)
         super()
-        @mapper = PersonMapper.new(database_name)
+        @mapper = OrganizationMapper.new(database_name)
         @mapper.id_generator = id_generator
       end
     end
