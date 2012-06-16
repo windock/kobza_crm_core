@@ -6,9 +6,8 @@ module KobzaCRM
   module Persistence
     class MongoPersonRepository < MongoRepository
       class PersonMapper < PartyMapper
-        def initialize(database_name)
-          super
-          set_mongo_collection('people')
+        def mongo_collection_name
+          'people'
         end
 
         def build_new(dto={})
