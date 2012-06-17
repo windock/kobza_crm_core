@@ -8,15 +8,19 @@ module KobzaCRM
     def add(entity)
       id = @id_generator.next_id
       entity.id = id
-      @entities[id] = entity
+      @entities[id] = entity.dup
+    end
+
+    def update(entity)
+      @entities[entity.id] = entity
     end
 
     def all
-      @entities.values
+      @entities.values.map(&:dup)
     end
 
     def find(id)
-      @entities[id]
+      @entities[id].dup
     end
   end
 end

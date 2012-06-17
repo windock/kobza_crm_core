@@ -11,6 +11,8 @@ module KobzaCRM
     def execute
       person = @person_repository.find(@person_id)
       person.add_address(WebPageAddress.new(@url))
+
+      @person_repository.update(person)
     end
   end
 end
