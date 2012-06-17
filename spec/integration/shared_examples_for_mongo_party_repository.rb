@@ -84,6 +84,23 @@ module KobzaCRM
           end
         end
 
+        describe '#update' do
+          context 'when a party was already added' do
+            before do
+              subject.add(party)
+            end
+
+            context 'when a party with the id of added is updated' do
+              it 'replaces a document with the same id' do
+                party.name = 'New name'
+                subject.update(party)
+
+                document['name'].should == 'New name'
+              end
+            end
+          end
+        end
+
         describe '#add' do
           context 'without associations' do
             before do

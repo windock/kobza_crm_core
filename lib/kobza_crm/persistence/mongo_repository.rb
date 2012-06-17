@@ -9,6 +9,10 @@ module KobzaCRM
         @mapper.find(id)
       end
 
+      def update(domain_object)
+        @mapper.update(domain_object)
+      end
+
       def all
         @mapper.all
       end
