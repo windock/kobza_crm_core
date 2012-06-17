@@ -1,33 +1,17 @@
 require 'kobza_crm/in_memory_person_repository'
 require 'kobza_crm/person'
+require_relative 'shared_examples_for_in_memory_party_repository'
 
 module KobzaCRM
   module Test
     describe InMemoryPersonRepository do
       subject { InMemoryPersonRepository.new(id_generator) }
 
-      let(:next_id) { 1 }
-      let(:id_generator) { stub(next_id: next_id) }
-      let(:new_person) { Struct.new(:id).new }
+      include_context 'an in memory party repository context'
+      it_behaves_like 'an in memory party repository'
 
-      context '#add' do
-        it 'adds new person' do
-          subject.add(new_person)
-          subject.all.should == [new_person]
-        end
-
-        it 'sets new id' do
-          subject.add(new_person)
-          new_person.id.should == next_id
-        end
-      end
-
-      context '#find' do
-        it 'allows to find a person by id' do
-          subject.add(new_person)
-          subject.find(next_id).should == new_person
-        end
-      end
+      let(:party) { Person.new('bob') }
+      let(:other_party) { Person.new('bill') }
     end
   end
 end

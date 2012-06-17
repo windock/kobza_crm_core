@@ -1,32 +1,17 @@
 require 'kobza_crm/in_memory_organization_repository'
+require 'kobza_crm/organization'
+require_relative 'shared_examples_for_in_memory_party_repository'
 
 module KobzaCRM
   module Test
     describe InMemoryOrganizationRepository do
       subject { InMemoryOrganizationRepository.new(id_generator) }
 
-      let(:next_id) { 1 }
-      let(:id_generator) { stub(next_id: next_id) }
-      let(:new_organization) { Struct.new(:id).new }
+      include_context 'an in memory party repository context'
+      it_behaves_like 'an in memory party repository'
 
-      context '#add' do
-        it 'adds new organization' do
-          subject.add(new_organization)
-          subject.all.should == [new_organization]
-        end
-
-        it 'sets new id' do
-          subject.add(new_organization)
-          new_organization.id.should == next_id
-        end
-      end
-
-      context '#find' do
-        it 'allows to find an organization by id' do
-          subject.add(new_organization)
-          subject.find(next_id).should == new_organization
-        end
-      end
+      let(:party) { Organization.new('Orga') }
+      let(:other_party) { Organization.new('Borka') }
     end
   end
 end
