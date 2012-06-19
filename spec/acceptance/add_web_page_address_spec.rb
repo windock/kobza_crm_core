@@ -5,7 +5,7 @@ module KobzaCRM
   module Test
     describe AddWebPageAddressTransaction do
       let(:id_generator) { Mongobzar::BSONIdGenerator.new }
-      let(:person_repository) { InMemoryPersonRepository.new(id_generator) }
+      let(:person_repository) { InMemoryPersonRepository.instance(id_generator) }
       let(:sample_url) { 'http://sample.example.com' }
 
       before do

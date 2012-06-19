@@ -4,7 +4,7 @@ require 'kobza_crm/person'
 module KobzaCRM
   module Test
     describe InMemoryPersonRepository do
-      subject { InMemoryPersonRepository.new(id_generator) }
+      subject { InMemoryPersonRepository.instance(id_generator) }
 
       let(:next_id) { 1 }
       let(:id_generator) { stub(next_id: next_id) }

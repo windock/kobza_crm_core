@@ -96,8 +96,5 @@ module KobzaCRM
       end
 
     end
-
-    shared_context 'an in memory party repository context' do
-    end
   end
 end

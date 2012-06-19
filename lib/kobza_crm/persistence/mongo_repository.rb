@@ -1,6 +1,8 @@
+require 'kobza_crm/repository'
+
 module KobzaCRM
   module Persistence
-    class MongoRepository
+    class MongoRepository < Repository
       def add(domain_object)
         @mapper.insert(domain_object)
       end

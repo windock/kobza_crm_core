@@ -5,7 +5,7 @@ module KobzaCRM
     describe AddPersonTransaction do
       before do
         id_generator = Mongobzar::BSONIdGenerator.new
-        @person_repository = InMemoryPersonRepository.new(id_generator)
+        @person_repository = InMemoryPersonRepository.instance(id_generator)
       end
 
       let(:sample_name) { 'Bob' }
