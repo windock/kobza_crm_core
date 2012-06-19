@@ -3,14 +3,20 @@ module KobzaCRM
     attr_accessor :name
     attr_accessor :id
     attr_reader :addresses
+    attr_reader :roles
 
     def initialize(name)
       @name = name
       @addresses = []
+      @roles = []
     end
 
     def add_address(address)
       @addresses << address
+    end
+
+    def add_role(role)
+      @roles << role
     end
 
     def ==(o)

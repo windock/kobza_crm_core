@@ -14,6 +14,13 @@ shared_examples 'a party' do
     subject.name.should == 'new_name'
   end
 
+  it 'may have multiple roles' do
+    subject.add_role(role1 = stub)
+    subject.add_role(role2 = stub)
+
+    subject.roles.should == [role1, role2]
+  end
+
   context 'cloned party' do
     it 'has full copy of addresses' do
       address = Struct.new(:value).new('original')

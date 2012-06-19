@@ -3,6 +3,9 @@ require 'mongobzar'
 
 module KobzaCRM
   module Test
+    # As a user,
+    # I want to add email address to the party,
+    # so that I may contact it later by email
     describe AddEmailAddressTransaction do
       let(:id_generator) { Mongobzar::BSONIdGenerator.new }
       let(:person_repository) { InMemoryPersonRepository.instance(id_generator) }

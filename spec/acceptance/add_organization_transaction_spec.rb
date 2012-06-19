@@ -2,6 +2,9 @@ require 'kobza_crm'
 
 module KobzaCRM
   module Test
+    # As a user,
+    # I want to add Organization
+    # so that I may keep track of it
     describe AddOrganizationTransaction do
       before do
         id_generator = Mongobzar::BSONIdGenerator.new

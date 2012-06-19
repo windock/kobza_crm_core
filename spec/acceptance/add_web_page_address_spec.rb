@@ -3,6 +3,9 @@ require 'mongobzar'
 
 module KobzaCRM
   module Test
+    # As a user,
+    # I want to add web page address to the party,
+    # so that I may contact it later
     describe AddWebPageAddressTransaction do
       let(:id_generator) { Mongobzar::BSONIdGenerator.new }
       let(:person_repository) { InMemoryPersonRepository.instance(id_generator) }
@@ -17,7 +20,7 @@ module KobzaCRM
         t.execute
       end
 
-      it 'add WebPageAddress to Person' do
+      it 'adds WebPageAddress to Person' do
         addresses = person_repository.find(@person_id).addresses
         web_page_address = addresses.first
 
