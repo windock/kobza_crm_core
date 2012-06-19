@@ -13,9 +13,8 @@ module KobzaCRM
     def execute
       person = @person_repository.find(@person_id)
 
-      role = CustomerRole.new(person)
+      role = CustomerRole.new
       role.customer_value = customer_value
-
       person.add_role(role)
 
       @person_repository.update(person)

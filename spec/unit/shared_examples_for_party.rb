@@ -14,11 +14,23 @@ shared_examples 'a party' do
     subject.name.should == 'new_name'
   end
 
-  it 'may have multiple roles' do
-    subject.add_role(role1 = stub)
-    subject.add_role(role2 = stub)
+  describe 'roles' do
+    def role_stub
+      Struct.new(:party).new
+    end
 
-    subject.roles.should == [role1, role2]
+    it 'may have multiple roles' do
+      subject.add_role(role1 = role_stub)
+      subject.add_role(role2 = role_stub)
+
+      subject.roles.should == [role1, role2]
+    end
+
+    it 'sets reference to self on adding role' do
+      role = role_stub
+      subject.add_role(role)
+      role.party.should == subject
+    end
   end
 
   context 'cloned party' do

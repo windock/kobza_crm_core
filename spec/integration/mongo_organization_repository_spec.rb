@@ -1,4 +1,3 @@
-require 'debugger'
 require 'mongobzar'
 require 'kobza_crm/persistence/mongo_organization_repository'
 require_relative 'shared_examples_for_mongo_party_repository'

@@ -16,6 +16,7 @@ module KobzaCRM
     end
 
     def add_role(role)
+      role.party = self
       @roles << role
     end
 

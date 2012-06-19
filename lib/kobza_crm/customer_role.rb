@@ -1,10 +1,11 @@
 module KobzaCRM
   class CustomerRole
     attr_accessor :customer_value
-    attr_reader :party
+    attr_accessor :party
+    attr_reader :name
 
-    def initialize(party)
-      @party = party
+    def initialize
+      @name = 'customer'
     end
   end
 end
