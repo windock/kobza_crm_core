@@ -1,8 +1,8 @@
+require 'kobza_crm/party_role'
+
 module KobzaCRM
-  class CustomerRole
+  class CustomerRole < PartyRole
     attr_accessor :customer_value
-    attr_accessor :party
-    attr_reader :name
 
     def initialize
       @name = 'customer'

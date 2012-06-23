@@ -1,23 +1,14 @@
 require 'kobza_crm/customer_role'
+require 'kobza_crm/make_person_role_transaction'
 
 module KobzaCRM
-  class MakePersonACustomerTransaction
-    def initialize(person_id, person_repository)
-      @person_repository = person_repository
-
-      @person_id = person_id
-    end
-
+  class MakePersonACustomerTransaction < MakePersonRoleTransaction
     attr_accessor :customer_value
 
-    def execute
-      person = @person_repository.find(@person_id)
-
+    def build_role
       role = CustomerRole.new
       role.customer_value = customer_value
-      person.add_role(role)
-
-      @person_repository.update(person)
+      role
     end
   end
 end

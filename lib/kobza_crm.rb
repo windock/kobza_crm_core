@@ -11,6 +11,7 @@ require 'kobza_crm/add_web_page_address_transaction'
 require 'kobza_crm/add_person_transaction'
 require 'kobza_crm/add_organization_transaction'
 require 'kobza_crm/make_person_a_customer_transaction'
+require 'kobza_crm/make_person_a_customer_service_representative_transaction'
 
 module KobzaCRM
   # Your code goes here...

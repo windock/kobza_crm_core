@@ -4,9 +4,9 @@ require 'mongobzar'
 module KobzaCRM
   module Test
     # As a user,
-    # I want to make some person a customer,
+    # I want to make some person a customer service representative,
     # so that I may treat it like one
-    describe MakePersonACustomerTransaction do
+    describe MakePersonACustomerServiceRepresentativeTransaction do
       let(:person_repository) do
         InMemoryPersonRepository.instance(Mongobzar::BSONIdGenerator.new)
       end
@@ -18,19 +18,18 @@ module KobzaCRM
         @person = t.person
       end
 
-      it 'adds Customer role to the Person' do
-        t = MakePersonACustomerTransaction.new(
+      it 'adds CustomerServiceRepresentative to the Person' do
+        t = MakePersonACustomerServiceRepresentativeTransaction.new(
           @person.id, person_repository)
-        t.customer_value = 3
         t.execute
 
         found_person = person_repository.find(@person.id)
         found_person.roles.size.should == 1
         role = found_person.roles.first
 
-        role.should be_kind_of(CustomerRole)
-        role.customer_value.should == 3
+        role.should be_kind_of(CustomerServiceRepresentativeRole)
       end
     end
   end
 end
+
