@@ -1,39 +1,21 @@
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
 require 'kobza_crm/customer_role'
+require_relative 'shared_examples_for_mongo_repository'
 
 module KobzaCRM
   module Persistence
     module Test
       shared_examples 'a mongo party repository' do
-        let(:id_generator) { Mongobzar::BSONIdGenerator.new }
-        let(:connection) { Mongo::Connection.new }
-        let(:db) { connection.db(database_name) }
-        let(:database_name) { 'kobza_crm_test' }
+        include_context 'a mongo repository context'
+
+        let(:domain_object) { party }
+        let(:other_domain_object) { other_party }
+        it_behaves_like 'a mongo repository'
 
         let(:sample_url) { 'test1.example.com/page' }
         let(:sample_email) { 'test1@example.com' }
         let(:sample_name) { 'SampleName' }
-        let(:documents) { collection.find.to_a }
-        let(:document) { documents[0] }
-        let(:collection) { db[collection_name] }
-
-        before do
-          subject.clear_everything!
-        end
-
-        describe '#all' do
-          context 'given 2 parties are added' do
-            before do
-              subject.add(party)
-              subject.add(other_party)
-            end
-
-            it 'returns all of them loaded' do
-              subject.all.should == [party, other_party]
-            end
-          end
-        end
 
         describe '#find' do
           context 'given party is added' do
@@ -135,20 +117,8 @@ module KobzaCRM
               subject.add(party)
             end
 
-            it 'updates id' do
-              party.id.should be_kind_of(BSON::ObjectId)
-            end
-
             describe 'persists it as' do
-              it 'single document' do
-                documents.size.should == 1
-              end
-
               describe 'document' do
-                it 'with _id' do
-                  document['_id'].should be_kind_of(BSON::ObjectId)
-                end
-
                 it 'with name' do
                   document['name'].should == sample_name
                 end
