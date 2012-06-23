@@ -1,8 +1,12 @@
 module KobzaCRM
   module Test
-    shared_examples 'an in memory repository' do
+    shared_context 'an in memory repository context' do
       let(:next_id) { 1 }
       let(:id_generator) { stub(next_id: next_id) }
+    end
+
+    shared_examples 'an in memory repository' do
+      include_context 'an in memory repository context'
 
       describe '#all' do
         context 'given 2 domain objects are added' do

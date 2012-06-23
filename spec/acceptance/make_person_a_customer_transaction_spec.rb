@@ -16,20 +16,25 @@ module KobzaCRM
         t.execute
 
         @person = t.person
-      end
 
-      it 'adds Customer role to the Person' do
         t = MakePersonACustomerTransaction.new(
           @person.id, person_repository)
         t.customer_value = 3
         t.execute
 
-        found_person = person_repository.find(@person.id)
-        found_person.roles.size.should == 1
-        role = found_person.roles.first
+        @found_person = person_repository.find(@person.id)
+        @role = @found_person.roles.first
+      end
 
-        role.should be_kind_of(CustomerRole)
-        role.customer_value.should == 3
+      it 'adds Customer role to the Person' do
+        @found_person.roles.size.should == 1
+
+        @role.should be_kind_of(CustomerRole)
+        @role.customer_value.should == 3
+      end
+
+      it 'sets id for the Customer role' do
+        @role.id.should_not be_nil
       end
     end
   end

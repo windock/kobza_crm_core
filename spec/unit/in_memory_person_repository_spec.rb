@@ -7,10 +7,12 @@ module KobzaCRM
     describe InMemoryPersonRepository do
       subject { InMemoryPersonRepository.instance(id_generator) }
 
+      include_context 'an in memory repository context'
       it_behaves_like 'an in memory party repository'
 
       let(:party) { Person.new('bob') }
       let(:other_party) { Person.new('bill') }
+
     end
   end
 end

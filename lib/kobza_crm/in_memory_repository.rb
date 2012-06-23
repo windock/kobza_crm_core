@@ -2,6 +2,8 @@ require 'kobza_crm/repository'
 
 module KobzaCRM
   class InMemoryRepository < Repository
+    attr_reader :id_generator
+
     def initialize(id_generator)
       @id_generator = id_generator
       @entities = {}

@@ -1,6 +1,6 @@
-require 'kobza_crm/in_memory_repository'
+require 'kobza_crm/in_memory_party_repository'
 
 module KobzaCRM
-  class InMemoryOrganizationRepository < InMemoryRepository
+  class InMemoryOrganizationRepository < InMemoryPartyRepository
   end
 end
