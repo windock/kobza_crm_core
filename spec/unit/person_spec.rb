@@ -25,7 +25,7 @@ module KobzaCRM
           p1.should == p2
         end
 
-        it 'is not true if any attribute is not equal' do
+        it 'is false if any attribute is not equal' do
           p1 = Person.new('name1')
           p1.id = 1
 
