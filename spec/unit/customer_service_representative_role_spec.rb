@@ -1,15 +1,12 @@
 require 'kobza_crm/customer_service_representative_role'
+require_relative 'shared_examples_for_party_role'
 
 module KobzaCRM
   describe CustomerServiceRepresentativeRole do
+    it_behaves_like 'party role'
+
     it 'has a "customer_service_representative" name' do
       subject.name.should == 'customer_service_representative'
-    end
-
-    it 'may have a party associated' do
-      party = stub
-      subject.party = party
-      subject.party.should == party
     end
   end
 end

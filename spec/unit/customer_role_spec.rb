@@ -1,15 +1,12 @@
 require 'kobza_crm/customer_role'
+require_relative 'shared_examples_for_party_role'
 
 module KobzaCRM
   describe CustomerRole do
+    it_behaves_like 'party role'
+
     it 'has a "customer" name' do
       subject.name.should == 'customer'
-    end
-
-    it 'may be have party associated' do
-      party = stub
-      subject.party = party
-      subject.party.should == party
     end
 
     it 'may have customer_value associated' do
