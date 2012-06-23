@@ -1,4 +1,3 @@
-require 'kobza_crm/repository_registry'
 require 'kobza_crm/person'
 
 module KobzaCRM

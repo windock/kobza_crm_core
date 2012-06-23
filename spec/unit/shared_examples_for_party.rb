@@ -1,4 +1,8 @@
+require_relative 'shared_examples_for_has_identity'
+
 shared_examples 'a party' do
+  it_behaves_like 'has identity'
+
   it 'may have multiple addresses' do
     address1 = stub
     address2 = stub
