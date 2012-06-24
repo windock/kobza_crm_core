@@ -36,30 +36,49 @@ module KobzaCRM
             end
           end
 
-          context 'given party is saved with related' do
+          context 'given party is added with related' do
             context 'role' do
               before do
-                customer_role = CustomerRole.new
-                customer_role.customer_value = 3
-                party.add_role(customer_role)
-
-                subject.add(party)
+                party.add_role(role)
+                repository.add(party)
               end
 
               let(:found_party) { subject.find(party.id) }
-              let(:role) { found_party.roles.first }
+              let(:found_role) { found_party.roles.first }
 
-              describe 'it loads party with loaded roles' do
-                it 'with name' do
-                  role.name.should == 'customer'
+              context 'CustomerServiceRepresentativeRole' do
+                let(:role) { CustomerServiceRepresentativeRole.new }
+
+                describe 'it loads party with loaded roles' do
+                  it 'with name' do
+                    found_role.name.should == 'customer_service_representative'
+                  end
+
+                  it 'with party' do
+                    found_role.party.should == party
+                  end
+                end
+              end
+
+              context 'CustomerRole' do
+                let(:role) do
+                  role = CustomerRole.new
+                  role.customer_value = 3
+                  role
                 end
 
-                it 'with customer_value' do
-                  role.customer_value.should == 3
-                end
+                describe 'it loads party with loaded roles' do
+                  it 'with name' do
+                    found_role.name.should == 'customer'
+                  end
 
-                it 'with party' do
-                  role.party.should == party
+                  it 'with customer_value' do
+                    found_role.customer_value.should == 3
+                  end
+
+                  it 'with party' do
+                    found_role.party.should == party
+                  end
                 end
               end
             end
@@ -127,27 +146,56 @@ module KobzaCRM
           end
 
           context 'with role' do
-            let(:role) do
-              role = CustomerRole.new
-              role.customer_value = 4
-              role
-            end
-
             before do
               party.add_role(role)
-              subject.add(party)
+              repository.add(party)
             end
 
-            let(:role_documents) { document['roles'] }
-            let(:role_document) { role_documents.first }
-
-            describe 'it persists it' do
-              it 'as 1 embedded document' do
-                role_documents.size.should == 1
+            context 'CustomerServiceRepresentative' do
+              let(:role) do
+                CustomerServiceRepresentativeRole.new
               end
 
-              it 'with customer_value' do
-                role_document['customer_value'].should == 4
+              let(:role_documents) { db['party_roles'].find.to_a }
+              let(:role_document) { role_documents.first }
+
+              describe 'it persists it in "party_roles" collection' do
+                subject { role_document }
+
+                it 'as 1 document' do
+                  role_documents.size.should == 1
+                end
+
+                it 'with type "customer_service_representative' do
+                  subject['type'].should == 'customer_service_representative'
+                end
+              end
+            end
+
+            context 'CustomerRole' do
+              let(:role) do
+                role = CustomerRole.new
+                role.customer_value = 4
+                role
+              end
+
+              let(:role_documents) { db['party_roles'].find.to_a }
+              let(:role_document) { role_documents.first }
+
+              describe 'it persists it in "party_roles" collection' do
+                subject { role_document }
+
+                it 'as 1 document' do
+                  role_documents.size.should == 1
+                end
+
+                it 'with type "customer"' do
+                  subject['type'].should == 'customer'
+                end
+
+                it 'with customer_value' do
+                  subject['customer_value'].should == 4
+                end
               end
             end
           end

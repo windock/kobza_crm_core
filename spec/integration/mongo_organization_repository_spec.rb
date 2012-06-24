@@ -6,7 +6,8 @@ module KobzaCRM
   module Persistence
     module Test
       describe MongoOrganizationRepository do
-        subject { MongoOrganizationRepository.instance(id_generator, database_name) }
+        subject { repository }
+        let(:repository) { MongoOrganizationRepository.instance(id_generator, database_name) }
 
         let(:collection_name) { 'organizations' }
 

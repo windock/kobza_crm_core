@@ -12,7 +12,7 @@ module KobzaCRM
         let(:collection) { db[collection_name] }
 
         before do
-          subject.clear_everything!
+          repository.clear_everything!
         end
       end
 

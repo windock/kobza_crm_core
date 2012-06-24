@@ -8,7 +8,8 @@ module KobzaCRM
   module Persistence
     module Tests
       describe MongoPersonRepository do
-        subject { MongoPersonRepository.instance(id_generator, database_name) }
+        subject { repository }
+        let(:repository) { MongoPersonRepository.instance(id_generator, database_name) }
 
         let(:collection_name) { 'people' }
 
