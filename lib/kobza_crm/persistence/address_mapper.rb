@@ -1,7 +1,7 @@
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
 require 'kobza_crm/persistence/inheritance_mapper'
-require 'kobza_crm/persistence/polymorphic_mapping_builder'
+require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
   module Persistence
@@ -9,18 +9,18 @@ module KobzaCRM
       include NoPublicNew
 
       def initialize
-        @mapping_builder = PolymorphicMappingBuilder.new([
+        @mapping_strategy = PolymorphicMappingStrategy.new([
           EmailAddressMapper.new,
           WebPageAddressMapper.new
         ])
       end
 
       def build_dto!(dto, address)
-        @mapping_builder.build_dto!(dto, address)
+        @mapping_strategy.build_dto!(dto, address)
       end
 
       def build_new(dto)
-        @mapping_builder.build_new(dto)
+        @mapping_strategy.build_new(dto)
       end
     end
 
