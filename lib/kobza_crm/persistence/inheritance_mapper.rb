@@ -5,11 +5,11 @@ module KobzaCRM
       end
 
       def build_new(dto)
-        self.class.domain_object_class.new
+        domain_object_class.new
       end
 
       def build_dto!(dto, role)
-        dto['type'] = self.class.type_code
+        dto['type'] = type_code
       end
     end
   end
