@@ -1,6 +1,6 @@
 module KobzaCRM
   module Persistence
-    class InheritanceMappingBuilder
+    class PolymorphicMappingBuilder
       def initialize(mappers)
         @mappers = mappers
       end

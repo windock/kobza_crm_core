@@ -1,7 +1,7 @@
 require 'kobza_crm/customer_role'
 require 'kobza_crm/customer_service_representative_role'
 require 'kobza_crm/persistence/inheritance_mapper'
-require 'kobza_crm/persistence/inheritance_mapping_builder'
+require 'kobza_crm/persistence/polymorphic_mapping_builder'
 
 module KobzaCRM
   module Persistence
@@ -11,7 +11,7 @@ module KobzaCRM
       def initialize(*args)
         super
         self.foreign_key = 'party_id'
-        @mapping_builder = InheritanceMappingBuilder.new([
+        @mapping_builder = PolymorphicMappingBuilder.new([
           CustomerRoleMapper.new,
           CustomerServiceRepresentativeRoleMapper.new
         ])
