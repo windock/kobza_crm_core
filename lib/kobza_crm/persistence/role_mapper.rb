@@ -1,6 +1,6 @@
 require 'kobza_crm/customer_role'
 require 'kobza_crm/customer_service_representative_role'
-require 'kobza_crm/persistence/inheritance_mapper'
+require 'kobza_crm/persistence/inheritance_mapping_strategy'
 require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
@@ -34,7 +34,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerServiceRepresentativeRoleMapper < InheritanceMapper
+    class CustomerServiceRepresentativeRoleMapper < InheritanceMappingStrategy
       def type_code
         'customer_service_representative'
       end
@@ -44,7 +44,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerRoleMapper < InheritanceMapper
+    class CustomerRoleMapper < InheritanceMappingStrategy
       def build_domain_object!(role, dto)
         role.customer_value = dto['customer_value']
       end

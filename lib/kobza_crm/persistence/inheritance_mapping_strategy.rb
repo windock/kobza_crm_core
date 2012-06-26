@@ -1,6 +1,6 @@
 module KobzaCRM
   module Persistence
-    class InheritanceMapper
+    class InheritanceMappingStrategy
       def build_domain_object!(role, dto)
       end
 

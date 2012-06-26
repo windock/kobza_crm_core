@@ -1,6 +1,6 @@
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
-require 'kobza_crm/persistence/inheritance_mapper'
+require 'kobza_crm/persistence/inheritance_mapping_strategy'
 require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
@@ -10,8 +10,8 @@ module KobzaCRM
 
       def initialize
         @mapping_strategy = PolymorphicMappingStrategy.new([
-          EmailAddressMapper.new,
-          WebPageAddressMapper.new
+          EmailAddressMappingStrategy.new,
+          WebPageAddressMappingStrategy.new
         ])
       end
 
@@ -24,7 +24,7 @@ module KobzaCRM
       end
     end
 
-    class EmailAddressMapper < InheritanceMapper
+    class EmailAddressMappingStrategy < InheritanceMappingStrategy
       def type_code
         'email'
       end
@@ -43,7 +43,7 @@ module KobzaCRM
       end
     end
 
-    class WebPageAddressMapper < InheritanceMapper
+    class WebPageAddressMappingStrategy < InheritanceMappingStrategy
       def type_code
         'web_page'
       end
