@@ -25,7 +25,7 @@ module KobzaCRM
         def build_dto!(dto, party)
           dto['name'] = party.name
 
-          dto['addresses'] = @address_mapper.build_embedded_collection(
+          dto['addresses'] = @address_mapper.build_dtos(
             party.addresses
           )
         end
