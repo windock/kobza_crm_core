@@ -7,8 +7,8 @@ module KobzaCRM
     class PartyMapper < Mongobzar::Mapping::Mapper
       def initialize(database_name)
         super
-        @address_mapper = AddressMapper.new
-        @role_mapper = RoleMapper.new(database_name)
+        @address_mapper = AddressMapper.instance
+        @role_mapper = RoleMapper.instance(database_name)
       end
 
       def build_dto!(dto, party)

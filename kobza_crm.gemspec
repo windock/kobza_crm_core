@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'kobza_crm'
   gem.require_paths = ['lib']
-  gem.version       = KobzaCrm::VERSION
+  gem.version       = KobzaCRM::VERSION
 
   gem.add_dependency 'mongobzar'
 

@@ -4,36 +4,9 @@ require 'kobza_crm/persistence/inheritance_mapper'
 
 module KobzaCRM
   module Persistence
-    class CustomerServiceRepresentativeRoleMapper < InheritanceMapper
-      def self.type_code
-        'customer_service_representative'
-      end
-
-      def self.domain_object_class
-        CustomerServiceRepresentativeRole
-      end
-    end
-
-    class CustomerRoleMapper < InheritanceMapper
-      def build_domain_object!(role, dto)
-        role.customer_value = dto['customer_value']
-      end
-
-      def build_dto!(dto, role)
-        super
-        dto['customer_value'] = role.customer_value
-      end
-
-      def self.type_code
-        'customer'
-      end
-
-      def self.domain_object_class
-        CustomerRole
-      end
-    end
-
     class RoleMapper < Mongobzar::Mapping::DependentMapper
+      include NoPublicNew
+
       def initialize(*args)
         super
         self.foreign_key = 'party_id'
@@ -71,6 +44,35 @@ module KobzaCRM
           when CustomerServiceRepresentativeRoleMapper.type_code then @csr_mapper
           end
         end
+    end
+
+    class CustomerServiceRepresentativeRoleMapper < InheritanceMapper
+      def self.type_code
+        'customer_service_representative'
+      end
+
+      def self.domain_object_class
+        CustomerServiceRepresentativeRole
+      end
+    end
+
+    class CustomerRoleMapper < InheritanceMapper
+      def build_domain_object!(role, dto)
+        role.customer_value = dto['customer_value']
+      end
+
+      def build_dto!(dto, role)
+        super
+        dto['customer_value'] = role.customer_value
+      end
+
+      def self.type_code
+        'customer'
+      end
+
+      def self.domain_object_class
+        CustomerRole
+      end
     end
   end
 end

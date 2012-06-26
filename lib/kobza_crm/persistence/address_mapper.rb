@@ -4,6 +4,38 @@ require 'kobza_crm/persistence/inheritance_mapper'
 
 module KobzaCRM
   module Persistence
+    class AddressMapper < Mongobzar::Mapping::EmbeddedMapper
+      include NoPublicNew
+
+      def initialize
+        @e_mapper = EmailAddressMapper.new
+        @wp_mapper = WebPageAddressMapper.new
+      end
+
+      def build_dto!(dto, address)
+        mapper_for_domain_object(address).build_dto!(dto, address)
+      end
+
+      def build_new(dto)
+        mapper_for_dto(dto).build_new(dto)
+      end
+
+      protected
+        def mapper_for_domain_object(address)
+          case address
+          when EmailAddressMapper.domain_object_class then @e_mapper
+          when WebPageAddressMapper.domain_object_class then @wp_mapper
+          end
+        end
+
+        def mapper_for_dto(dto)
+          case dto['type']
+          when EmailAddressMapper.type_code then @e_mapper
+          when WebPageAddressMapper.type_code then @wp_mapper
+          end
+        end
+    end
+
     class EmailAddressMapper < InheritanceMapper
       def self.type_code
         'email'
@@ -42,34 +74,5 @@ module KobzaCRM
       end
     end
 
-    class AddressMapper < Mongobzar::Mapping::EmbeddedMapper
-      def initialize
-        @e_mapper = EmailAddressMapper.new
-        @wp_mapper = WebPageAddressMapper.new
-      end
-
-      def build_dto!(dto, address)
-        mapper_for_domain_object(address).build_dto!(dto, address)
-      end
-
-      def build_new(dto)
-        mapper_for_dto(dto).build_new(dto)
-      end
-
-      protected
-        def mapper_for_domain_object(address)
-          case address
-          when EmailAddressMapper.domain_object_class then @e_mapper
-          when WebPageAddressMapper.domain_object_class then @wp_mapper
-          end
-        end
-
-        def mapper_for_dto(dto)
-          case dto['type']
-          when EmailAddressMapper.type_code then @e_mapper
-          when WebPageAddressMapper.type_code then @wp_mapper
-          end
-        end
-    end
   end
 end

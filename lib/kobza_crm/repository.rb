@@ -1,8 +1,7 @@
+require 'kobza_crm/no_public_new'
+
 module KobzaCRM
   class Repository
-    def self.instance(*args)
-      new(*args)
-    end
-    private_class_method :new
+    include NoPublicNew
   end
 end
