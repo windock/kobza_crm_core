@@ -13,8 +13,8 @@ module KobzaCRM
         super
         self.foreign_key = 'party_id'
         @mapping_strategy = PolymorphicMappingStrategy.new([
-          CustomerRoleMapper.new,
-          CustomerServiceRepresentativeRoleMapper.new
+          CustomerRoleMappingStrategy.instance,
+          CustomerServiceRepresentativeRoleMappingStrategy.instance
         ])
       end
 
@@ -23,21 +23,11 @@ module KobzaCRM
       def mongo_collection_name
         'party_roles'
       end
-
-      def build_new(dto)
-        @mapping_strategy.build_new(dto)
-      end
-
-      def build_domain_object!(role, dto)
-        @mapping_strategy.build_domain_object!(role, dto)
-      end
-
-      def build_dto!(dto, role)
-        @mapping_strategy.build_dto!(dto, role)
-      end
     end
 
-    class CustomerServiceRepresentativeRoleMapper < Mongobzar::Mapping::WithIdentityMappingStrategy
+    class CustomerServiceRepresentativeRoleMappingStrategy < Mongobzar::Mapping::WithIdentityMappingStrategy
+      include NoPublicNew
+
       def type_code
         'customer_service_representative'
       end
@@ -55,7 +45,9 @@ module KobzaCRM
       end
     end
 
-    class CustomerRoleMapper < Mongobzar::Mapping::WithIdentityMappingStrategy
+    class CustomerRoleMappingStrategy < Mongobzar::Mapping::WithIdentityMappingStrategy
+      include NoPublicNew
+
       def build_domain_object!(role, dto)
         role.customer_value = dto['customer_value']
       end
