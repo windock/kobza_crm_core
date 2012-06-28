@@ -1,7 +1,6 @@
 require 'kobza_crm/no_public_new'
 require 'kobza_crm/customer_role'
 require 'kobza_crm/customer_service_representative_role'
-require 'kobza_crm/persistence/inheritance_mapping_strategy'
 require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM

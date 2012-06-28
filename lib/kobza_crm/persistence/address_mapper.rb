@@ -1,7 +1,6 @@
 require 'kobza_crm/no_public_new'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
-require 'kobza_crm/persistence/inheritance_mapping_strategy'
 require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
@@ -18,13 +17,13 @@ module KobzaCRM
       end
     end
 
-    class EmailAddressMappingStrategy < InheritanceMappingStrategy
+    class EmailAddressMappingStrategy < Mongobzar::Mapping::MappingStrategy
       def type_code
         'email'
       end
 
       def build_dto!(dto, address)
-        super
+        dto['type'] = type_code
         dto['email_address'] = address.email_address
       end
 
@@ -37,13 +36,13 @@ module KobzaCRM
       end
     end
 
-    class WebPageAddressMappingStrategy < InheritanceMappingStrategy
+    class WebPageAddressMappingStrategy < Mongobzar::Mapping::MappingStrategy
       def type_code
         'web_page'
       end
 
       def build_dto!(dto, address)
-        super
+        dto['type'] = type_code
         dto['url'] = address.url
       end
 
