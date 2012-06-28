@@ -5,12 +5,25 @@ module KobzaCRM
         @mappers = mappers
       end
 
+      def build_dto(domain_object)
+        mapper_for_domain_object(domain_object).build_dto(domain_object)
+      end
+
+
+      def link_domain_object(domain_object, dto)
+        mapper_for_domain_object(domain_object).link_domain_object(domain_object, dto)
+      end
+
       def build_dto!(dto, domain_object)
         mapper_for_domain_object(domain_object).build_dto!(dto, domain_object)
       end
 
       def build_new(dto)
         mapper_for_dto(dto).build_new(dto)
+      end
+
+      def build_domain_object(dto)
+        mapper_for_dto(dto).build_domain_object(dto)
       end
 
       def build_domain_object!(role, dto)

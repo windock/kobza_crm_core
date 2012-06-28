@@ -1,3 +1,4 @@
+require 'kobza_crm/no_public_new'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
 require 'kobza_crm/persistence/inheritance_mapping_strategy'
@@ -7,20 +8,13 @@ module KobzaCRM
   module Persistence
     class AddressMapper < Mongobzar::Mapping::EmbeddedMapper
       include NoPublicNew
+      attr_reader :mapping_strategy
 
       def initialize
         @mapping_strategy = PolymorphicMappingStrategy.new([
           EmailAddressMappingStrategy.new,
           WebPageAddressMappingStrategy.new
         ])
-      end
-
-      def build_dto!(dto, address)
-        @mapping_strategy.build_dto!(dto, address)
-      end
-
-      def build_new(dto)
-        @mapping_strategy.build_new(dto)
       end
     end
 

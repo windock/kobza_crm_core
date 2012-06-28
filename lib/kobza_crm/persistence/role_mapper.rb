@@ -1,3 +1,4 @@
+require 'kobza_crm/no_public_new'
 require 'kobza_crm/customer_role'
 require 'kobza_crm/customer_service_representative_role'
 require 'kobza_crm/persistence/inheritance_mapping_strategy'
@@ -17,6 +18,8 @@ module KobzaCRM
         ])
       end
 
+      attr_reader :mapping_strategy
+
       def mongo_collection_name
         'party_roles'
       end
@@ -34,9 +37,17 @@ module KobzaCRM
       end
     end
 
-    class CustomerServiceRepresentativeRoleMapper < InheritanceMappingStrategy
+    class CustomerServiceRepresentativeRoleMapper < Mongobzar::Mapping::WithIdentityMappingStrategy
       def type_code
         'customer_service_representative'
+      end
+
+      def build_new(dto)
+        domain_object_class.new
+      end
+
+      def build_dto!(dto, role)
+        dto['type'] = type_code
       end
 
       def domain_object_class
@@ -44,13 +55,17 @@ module KobzaCRM
       end
     end
 
-    class CustomerRoleMapper < InheritanceMappingStrategy
+    class CustomerRoleMapper < Mongobzar::Mapping::WithIdentityMappingStrategy
       def build_domain_object!(role, dto)
         role.customer_value = dto['customer_value']
       end
 
+      def build_new(dto)
+        domain_object_class.new
+      end
+
       def build_dto!(dto, role)
-        super
+        dto['type'] = type_code
         dto['customer_value'] = role.customer_value
       end
 

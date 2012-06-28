@@ -5,13 +5,21 @@ require 'kobza_crm/persistence/mongo_repository'
 module KobzaCRM
   module Persistence
     class MongoOrganizationRepository < MongoRepository
+      class OrganizationMappingStrategy < PartyMappingStrategy
+        def build_new(dto)
+          Organization.new(dto['name'])
+        end
+      end
+
       class OrganizationMapper < PartyMapper
-        def mongo_collection_name
-          'organizations'
+        def initialize(database_name)
+          super
+          @mapping_strategy = OrganizationMappingStrategy.new(
+            address_mapper, role_mapper)
         end
 
-        def build_new(dto={})
-          Organization.new(dto['name'])
+        def mongo_collection_name
+          'organizations'
         end
       end
 

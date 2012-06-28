@@ -1,8 +1,8 @@
-require 'kobza_crm/persistence/mapping_strategy'
+require 'mongobzar'
 
 module KobzaCRM
   module Persistence
-    class InheritanceMappingStrategy < MappingStrategy
+    class InheritanceMappingStrategy < Mongobzar::Mapping::MappingStrategy
       def build_domain_object!(role, dto)
       end
 
