@@ -26,7 +26,6 @@ module KobzaCRM
       def initialize(id_generator, database_name)
         super()
         @mapper = PersonMapper.new(database_name)
-        @mapper.id_generator = id_generator
       end
     end
   end

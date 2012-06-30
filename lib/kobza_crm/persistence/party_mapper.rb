@@ -4,7 +4,7 @@ require 'kobza_crm/persistence/role_mapper'
 
 module KobzaCRM
   module Persistence
-    class PartyMappingStrategy < Mongobzar::Mapping::WithIdentityMappingStrategy
+    class PartyMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
       def initialize(address_mapper, role_mapper)
         @address_mapper = address_mapper
         @role_mapper = role_mapper

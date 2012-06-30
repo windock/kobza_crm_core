@@ -24,7 +24,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerServiceRepresentativeRoleMappingStrategy < Mongobzar::Mapping::WithIdentityMappingStrategy
+    class CustomerServiceRepresentativeRoleMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
       include NoPublicNew
 
       def type_code
@@ -44,7 +44,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerRoleMappingStrategy < Mongobzar::Mapping::WithIdentityMappingStrategy
+    class CustomerRoleMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
       include NoPublicNew
 
       def build_domain_object!(role, dto)
