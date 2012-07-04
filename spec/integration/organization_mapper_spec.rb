@@ -1,13 +1,15 @@
 require 'mongobzar'
-require 'kobza_crm/persistence/mongo_organization_repository'
+require 'kobza_crm/persistence/organization_mapper'
 require_relative 'shared_examples_for_mongo_party_repository'
 
 module KobzaCRM
   module Persistence
     module Test
-      describe MongoOrganizationRepository do
+      describe OrganizationMapper do
         subject { repository }
-        let(:repository) { MongoOrganizationRepository.instance(database_name) }
+        let(:repository) {
+          OrganizationMapper.new(database_name)
+        }
 
         let(:collection_name) { 'organizations' }
 
