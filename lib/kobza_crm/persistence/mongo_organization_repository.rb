@@ -6,15 +6,16 @@ module KobzaCRM
   module Persistence
     class MongoOrganizationRepository < MongoRepository
       class OrganizationMappingStrategy < PartyMappingStrategy
+        include NoPublicNew
+
         def build_new(dto)
           Organization.new(dto['name'])
         end
       end
 
       class OrganizationMapper < PartyMapper
-        def initialize(database_name)
-          super
-          @mapping_strategy = OrganizationMappingStrategy.new(
+        def mapping_strategy
+          OrganizationMappingStrategy.instance(
             address_mapping_strategy, role_mapper)
         end
 

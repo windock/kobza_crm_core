@@ -5,9 +5,9 @@ require 'kobza_crm/persistence/role_mapper'
 module KobzaCRM
   module Persistence
     class PartyMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
-      def initialize(address_mapping_strategy, role_mapper)
+      def initialize(address_mapping_strategy, role_mapping_strategy)
         @address_mapping_strategy = address_mapping_strategy
-        @role_mapper = role_mapper
+        @role_mapping_strategy = role_mapping_strategy
       end
 
       def build_domain_object!(party, dto)
@@ -15,7 +15,7 @@ module KobzaCRM
           party.add_address(address)
         end
 
-        @role_mapper.find_dependent_collection(party).each do|role|
+        role_mapping_strategy.find_dependent_collection(party).each do|role|
           party.add_role(role)
         end
       end
@@ -30,17 +30,12 @@ module KobzaCRM
 
       private
         attr_reader :address_mapping_strategy
+        attr_reader :role_mapping_strategy
 
     end
 
     class PartyMapper < Mongobzar::Mapping::Mapper
       attr_reader :mapping_strategy
-      attr_reader :role_mapper
-
-      def initialize(database_name)
-        super
-        @role_mapper = RoleMapper.instance(database_name)
-      end
 
       def insert(party)
         super
@@ -58,7 +53,9 @@ module KobzaCRM
       end
 
       protected
-        attr_reader :role_mapper
+        def role_mapper
+          RoleMapper.instance(database_name)
+        end
 
         def address_mapping_strategy
           AddressMappingStrategy.instance

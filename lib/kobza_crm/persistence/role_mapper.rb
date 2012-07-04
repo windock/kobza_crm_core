@@ -8,16 +8,16 @@ module KobzaCRM
     class RoleMapper < Mongobzar::Mapping::DependentMapper
       include NoPublicNew
 
-      def initialize(*args)
-        super
-        self.foreign_key = 'party_id'
-        @mapping_strategy = PolymorphicMappingStrategy.new([
+      def mapping_strategy
+        PolymorphicMappingStrategy.new([
           CustomerRoleMappingStrategy.instance,
           CustomerServiceRepresentativeRoleMappingStrategy.instance
         ])
       end
 
-      attr_reader :mapping_strategy
+      def foreign_key
+        'party_id'
+      end
 
       def mongo_collection_name
         'party_roles'

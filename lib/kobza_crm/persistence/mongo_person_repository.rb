@@ -12,9 +12,8 @@ module KobzaCRM
       end
 
       class PersonMapper < PartyMapper
-        def initialize(database_name)
-          super
-          @mapping_strategy = PersonMappingStrategy.new(
+        def mapping_strategy
+          PersonMappingStrategy.new(
             address_mapping_strategy, role_mapper)
         end
 
