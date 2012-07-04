@@ -7,8 +7,7 @@ module KobzaCRM
     # so that I may keep track of it
     describe AddOrganizationTransaction do
       before do
-        id_generator = Mongobzar::Utility::BSONIdGenerator.new
-        @organization_repository = InMemoryOrganizationRepository.instance(id_generator)
+        @organization_repository = InMemoryOrganizationRepository.instance
       end
 
       let(:sample_name) { 'Orga' }

@@ -8,7 +8,7 @@ module KobzaCRM
     # so that I may keep track of it
     describe AddPersonTransaction do
       let(:person_repository) do
-        InMemoryPersonRepository.instance(Mongobzar::Utility::BSONIdGenerator.new)
+        InMemoryPersonRepository.instance
       end
       let(:sample_name) { 'Bob' }
 

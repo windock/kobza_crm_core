@@ -3,6 +3,10 @@ module KobzaCRM
     shared_context 'an in memory repository context' do
       let(:next_id) { 1 }
       let(:id_generator) { stub(next_id: next_id) }
+
+      before do
+        subject.id_generator = id_generator
+      end
     end
 
     shared_examples 'an in memory repository' do

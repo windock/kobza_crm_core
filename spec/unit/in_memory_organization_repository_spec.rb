@@ -5,7 +5,7 @@ require_relative 'shared_examples_for_in_memory_party_repository'
 module KobzaCRM
   module Test
     describe InMemoryOrganizationRepository do
-      subject { InMemoryOrganizationRepository.instance(id_generator) }
+      subject { InMemoryOrganizationRepository.instance }
 
       it_behaves_like 'an in memory party repository'
 

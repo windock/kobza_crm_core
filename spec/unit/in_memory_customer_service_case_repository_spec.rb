@@ -6,7 +6,7 @@ module KobzaCRM
   module Test
     describe InMemoryCustomerServiceCaseRepository do
       subject do
-        InMemoryCustomerServiceCaseRepository.instance(id_generator)
+        InMemoryCustomerServiceCaseRepository.instance
       end
 
       let(:domain_object) do
