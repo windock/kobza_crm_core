@@ -8,7 +8,7 @@ module KobzaCRM
     # so that I may treat it like one
     describe MakePersonACustomerServiceRepresentativeTransaction do
       let(:person_repository) do
-        InMemoryPersonRepository.instance(Mongobzar::BSONIdGenerator.new)
+        InMemoryPersonRepository.instance(Mongobzar::Utility::BSONIdGenerator.new)
       end
 
       before do

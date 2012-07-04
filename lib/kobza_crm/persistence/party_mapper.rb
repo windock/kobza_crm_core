@@ -34,7 +34,7 @@ module KobzaCRM
 
     end
 
-    class PartyMapper < Mongobzar::Mapping::Mapper
+    class PartyMapper < Mongobzar::Mapper::Mapper
       attr_reader :mapping_strategy
 
       def insert(party)

@@ -4,7 +4,7 @@ require 'kobza_crm/customer_service_representative_role'
 
 module KobzaCRM
   module Persistence
-    class RoleMapper < Mongobzar::Mapping::DependentMapper
+    class RoleMapper < Mongobzar::Mapper::DependentMapper
       include NoPublicNew
 
       def mapping_strategy

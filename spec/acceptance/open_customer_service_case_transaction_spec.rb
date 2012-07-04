@@ -9,11 +9,11 @@ module KobzaCRM
     describe OpenCustomerServiceCaseTransaction do
       let(:customer_service_case_repository) do
         InMemoryCustomerServiceCaseRepository.instance(
-          Mongobzar::BSONIdGenerator.new)
+          Mongobzar::Utility::BSONIdGenerator.new)
       end
       before do
         person_repository = InMemoryPersonRepository.instance(
-          Mongobzar::BSONIdGenerator.new)
+          Mongobzar::Utility::BSONIdGenerator.new)
         t = AddPersonTransaction.new('Bob', person_repository)
         t.execute
         @person = t.person

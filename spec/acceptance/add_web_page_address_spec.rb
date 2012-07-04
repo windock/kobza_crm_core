@@ -7,7 +7,7 @@ module KobzaCRM
     # I want to add web page address to the party,
     # so that I may contact it later
     describe AddWebPageAddressTransaction do
-      let(:id_generator) { Mongobzar::BSONIdGenerator.new }
+      let(:id_generator) { Mongobzar::Utility::BSONIdGenerator.new }
       let(:person_repository) { InMemoryPersonRepository.instance(id_generator) }
       let(:sample_url) { 'http://sample.example.com' }
 
