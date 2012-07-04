@@ -9,7 +9,7 @@ module KobzaCRM
     module Tests
       describe MongoPersonRepository do
         subject { repository }
-        let(:repository) { MongoPersonRepository.instance(id_generator, database_name) }
+        let(:repository) { MongoPersonRepository.instance(database_name) }
 
         let(:collection_name) { 'people' }
 

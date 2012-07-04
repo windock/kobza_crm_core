@@ -7,7 +7,7 @@ module KobzaCRM
     module Test
       describe MongoOrganizationRepository do
         subject { repository }
-        let(:repository) { MongoOrganizationRepository.instance(id_generator, database_name) }
+        let(:repository) { MongoOrganizationRepository.instance(database_name) }
 
         let(:collection_name) { 'organizations' }
 

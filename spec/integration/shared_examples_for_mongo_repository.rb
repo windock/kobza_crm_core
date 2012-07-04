@@ -2,7 +2,6 @@ module KobzaCRM
   module Persistence
     module Test
       shared_context 'a mongo repository context' do
-        let(:id_generator) { Mongobzar::Utility::BSONIdGenerator.new }
         let(:connection) { Mongo::Connection.new }
         let(:db) { connection.db(database_name) }
         let(:database_name) { 'kobza_crm_test' }

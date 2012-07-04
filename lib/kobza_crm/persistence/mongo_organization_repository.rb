@@ -24,7 +24,7 @@ module KobzaCRM
         end
       end
 
-      def initialize(id_generator, database_name)
+      def initialize(database_name)
         super()
         @database_name = database_name
       end
