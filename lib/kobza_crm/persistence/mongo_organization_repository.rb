@@ -26,8 +26,15 @@ module KobzaCRM
 
       def initialize(id_generator, database_name)
         super()
-        @mapper = OrganizationMapper.new(database_name)
+        @database_name = database_name
       end
+
+      def mapper
+        OrganizationMapper.new(database_name)
+      end
+
+      private
+        attr_reader :database_name
     end
   end
 end

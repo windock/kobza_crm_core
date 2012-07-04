@@ -6,6 +6,8 @@ module KobzaCRM
   module Persistence
     class MongoPersonRepository < MongoRepository
       class PersonMappingStrategy < PartyMappingStrategy
+        include NoPublicNew
+
         def build_new(dto)
           Person.new(dto['name'])
         end
@@ -13,7 +15,7 @@ module KobzaCRM
 
       class PersonMapper < PartyMapper
         def mapping_strategy
-          PersonMappingStrategy.new(
+          PersonMappingStrategy.instance(
             address_mapping_strategy, role_mapper)
         end
 
@@ -24,8 +26,16 @@ module KobzaCRM
 
       def initialize(id_generator, database_name)
         super()
-        @mapper = PersonMapper.new(database_name)
+        @database_name = database_name
       end
+
+      protected
+        def mapper
+          PersonMapper.new(database_name)
+        end
+
+      private
+        attr_reader :database_name
     end
   end
 end

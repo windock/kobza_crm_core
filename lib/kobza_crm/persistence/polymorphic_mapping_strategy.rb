@@ -35,12 +35,15 @@ module KobzaCRM
 
       protected
         def mapper_for_dto(dto)
-          @mappers.find { |mapper| mapper.type_code == dto['type'] }
+          mappers.find { |mapper| mapper.type_code == dto['type'] }
         end
 
         def mapper_for_domain_object(role)
-          @mappers.find { |mapper| role.kind_of?(mapper.domain_object_class) }
+          mappers.find { |mapper| role.kind_of?(mapper.domain_object_class) }
         end
+
+      private
+        attr_reader :mappers
     end
   end
 end
