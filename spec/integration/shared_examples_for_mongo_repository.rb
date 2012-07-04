@@ -21,8 +21,8 @@ module KobzaCRM
         describe '#all' do
           context 'given 2 domain objects are added' do
             before do
-              subject.add(domain_object)
-              subject.add(other_domain_object)
+              subject.insert(domain_object)
+              subject.insert(other_domain_object)
             end
 
             it 'returns all of them loaded' do
@@ -34,7 +34,7 @@ module KobzaCRM
         describe '#add' do
           context 'without associations' do
             before do
-              subject.add(domain_object)
+              subject.insert(domain_object)
             end
 
             it 'updates id' do

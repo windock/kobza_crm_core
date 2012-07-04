@@ -20,7 +20,7 @@ module KobzaCRM
         describe '#find' do
           context 'given party is added' do
             before do
-              subject.add(party)
+              subject.insert(party)
             end
 
             describe 'finds party by it\'s id and loads it' do
@@ -40,7 +40,7 @@ module KobzaCRM
             context 'role' do
               before do
                 party.add_role(role)
-                repository.add(party)
+                repository.insert(party)
               end
 
               let(:found_party) { subject.find(party.id) }
@@ -89,7 +89,7 @@ module KobzaCRM
                   web_page_address = WebPageAddress.new(sample_url)
                   party.add_address(web_page_address)
 
-                  subject.add(party)
+                  subject.insert(party)
 
                   found_party = subject.find(party.id)
                   found_party.addresses[0].url.should == sample_url
@@ -103,7 +103,7 @@ module KobzaCRM
                   email_address = EmailAddress.new(sample_email)
                   party.add_address(email_address)
 
-                  subject.add(party)
+                  subject.insert(party)
 
                   found_party = subject.find(party.id)
                   found_party.addresses[0].email_address.should == sample_email
@@ -116,7 +116,7 @@ module KobzaCRM
         describe '#update' do
           context 'when a party was already added' do
             before do
-              subject.add(party)
+              subject.insert(party)
             end
 
             context 'when a party with the id of added is updated' do
@@ -133,7 +133,7 @@ module KobzaCRM
         describe '#add' do
           context 'without associations' do
             before do
-              subject.add(party)
+              subject.insert(party)
             end
 
             describe 'persists it as' do
@@ -148,7 +148,7 @@ module KobzaCRM
           context 'with role' do
             before do
               party.add_role(role)
-              repository.add(party)
+              repository.insert(party)
             end
 
             context 'CustomerServiceRepresentative' do
@@ -204,7 +204,7 @@ module KobzaCRM
             before do
               web_page_address = WebPageAddress.new(sample_url)
               party.add_address(web_page_address)
-              subject.add(party)
+              subject.insert(party)
             end
 
             let(:web_address_documents) do
@@ -232,7 +232,7 @@ module KobzaCRM
             before do
               email_address = EmailAddress.new(sample_email)
               party.add_address(email_address)
-              subject.add(party)
+              subject.insert(party)
             end
 
             let(:email_address_documents) do

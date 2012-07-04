@@ -16,7 +16,7 @@ module KobzaCRM
       describe '#update' do
         context 'when a party was already added' do
           before do
-            subject.add(party)
+            subject.insert(party)
           end
 
           context 'when a party with id of added is updated' do

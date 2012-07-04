@@ -9,7 +9,7 @@ module KobzaCRM
 
     def execute
       @person = Person.new(@name)
-      @person_repository.add(@person)
+      @person_repository.insert(@person)
     end
 
     attr_reader :person

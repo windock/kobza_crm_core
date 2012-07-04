@@ -7,7 +7,7 @@ module KobzaCRM
 
     def execute
       @organization = Organization.new(@name)
-      @organization_repository.add(organization)
+      @organization_repository.insert(organization)
     end
 
     attr_reader :organization

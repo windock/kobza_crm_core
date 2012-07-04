@@ -8,7 +8,7 @@ module KobzaCRM
       @entities = {}
     end
 
-    def add(entity)
+    def insert(entity)
       id = id_generator.next_id
       entity.id = id
       entities[id] = entity.dup

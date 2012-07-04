@@ -15,9 +15,9 @@ module KobzaCRM
       describe '#all' do
         context 'given 2 domain objects are added' do
           before do
-            subject.add(domain_object)
+            subject.insert(domain_object)
             id_generator.stub!(:next_id) { 2 }
-            subject.add(other_domain_object)
+            subject.insert(other_domain_object)
           end
 
           describe 'returns all of the loaded, which' do
@@ -39,7 +39,7 @@ module KobzaCRM
       describe '#find' do
         context 'given domain object is added' do
           before do
-            subject.add(domain_object)
+            subject.insert(domain_object)
           end
 
           describe 'returns domain_object by id which' do
@@ -57,7 +57,7 @@ module KobzaCRM
       describe '#update' do
         context 'when a domain_object was already added' do
           before do
-            subject.add(domain_object)
+            subject.insert(domain_object)
           end
 
           context 'when a domain_object with the id of added is updated' do
@@ -73,7 +73,7 @@ module KobzaCRM
 
       describe '#add' do
         before do
-          subject.add(domain_object)
+          subject.insert(domain_object)
         end
 
         describe 'adds new domain_object' do
