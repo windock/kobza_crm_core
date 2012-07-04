@@ -1,14 +1,13 @@
 require 'kobza_crm/no_public_new'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
-require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
   module Persistence
     class AddressMappingStrategy
       include NoPublicNew
       def self.instance
-        PolymorphicMappingStrategy.new([
+        Mongobzar::MappingStrategy::PolymorphicMappingStrategy.new([
           EmailAddressMappingStrategy.new,
           WebPageAddressMappingStrategy.new
         ])
