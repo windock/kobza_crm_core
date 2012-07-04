@@ -5,19 +5,13 @@ require 'kobza_crm/persistence/polymorphic_mapping_strategy'
 
 module KobzaCRM
   module Persistence
-    class AddressMapper
+    class AddressMappingStrategy
       include NoPublicNew
-      attr_reader :mapping_strategy
-
       def self.instance
         PolymorphicMappingStrategy.new([
           EmailAddressMappingStrategy.new,
           WebPageAddressMappingStrategy.new
         ])
-      end
-
-      def mapping_strategy
-        self
       end
     end
 

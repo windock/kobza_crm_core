@@ -15,7 +15,7 @@ module KobzaCRM
         def initialize(database_name)
           super
           @mapping_strategy = PersonMappingStrategy.new(
-            address_mapper, role_mapper)
+            address_mapping_strategy, role_mapper)
         end
 
         def mongo_collection_name

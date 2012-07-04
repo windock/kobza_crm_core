@@ -1,17 +1,17 @@
 require 'mongobzar'
-require 'kobza_crm/persistence/address_mapper'
+require 'kobza_crm/persistence/address_mapping_strategy'
 require 'kobza_crm/persistence/role_mapper'
 
 module KobzaCRM
   module Persistence
     class PartyMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
-      def initialize(address_mapper, role_mapper)
-        @address_mapper = address_mapper
+      def initialize(address_mapping_strategy, role_mapper)
+        @address_mapping_strategy = address_mapping_strategy
         @role_mapper = role_mapper
       end
 
       def build_domain_object!(party, dto)
-        @address_mapper.build_domain_objects(dto['addresses']).each do |address|
+        address_mapping_strategy.build_domain_objects(dto['addresses']).each do |address|
           party.add_address(address)
         end
 
@@ -23,10 +23,14 @@ module KobzaCRM
       def build_dto!(dto, party)
         dto['name'] = party.name
 
-        dto['addresses'] = @address_mapper.build_dtos(
+        dto['addresses'] = address_mapping_strategy.build_dtos(
           party.addresses
         )
       end
+
+      private
+        attr_reader :address_mapping_strategy
+
     end
 
     class PartyMapper < Mongobzar::Mapping::Mapper
@@ -35,7 +39,6 @@ module KobzaCRM
 
       def initialize(database_name)
         super
-        @address_mapper = AddressMapper.instance
         @role_mapper = RoleMapper.instance(database_name)
       end
 
@@ -55,7 +58,11 @@ module KobzaCRM
       end
 
       protected
-        attr_reader :address_mapper, :role_mapper
+        attr_reader :role_mapper
+
+        def address_mapping_strategy
+          AddressMappingStrategy.instance
+        end
     end
   end
 end
