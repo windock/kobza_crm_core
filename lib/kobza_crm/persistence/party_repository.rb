@@ -1,6 +1,6 @@
 require 'mongobzar'
 require 'kobza_crm/persistence/address_mapping_strategy'
-require 'kobza_crm/persistence/role_mapper'
+require 'kobza_crm/persistence/role_repository'
 
 module KobzaCRM
   module Persistence
@@ -34,27 +34,27 @@ module KobzaCRM
 
     end
 
-    class PartyMapper < Mongobzar::Mapper::Mapper
+    class PartyRepository < Mongobzar::Repository::Repository
       attr_reader :mapping_strategy
 
       def insert(party)
         super
-        role_mapper.insert_dependent_collection(party, party.roles)
+        role_repository.insert_dependent_collection(party, party.roles)
       end
 
       def update(party)
         super
-        role_mapper.update_dependent_collection(party, party.roles)
+        role_repository.update_dependent_collection(party, party.roles)
       end
 
       def clear_everything!
         super
-        role_mapper.clear_everything!
+        role_repository.clear_everything!
       end
 
       protected
-        def role_mapper
-          RoleMapper.instance(database_name)
+        def role_repository
+          RoleRepository.instance(database_name)
         end
 
         def address_mapping_strategy

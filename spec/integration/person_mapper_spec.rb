@@ -1,5 +1,5 @@
 require 'mongobzar'
-require 'kobza_crm/persistence/person_mapper'
+require 'kobza_crm/persistence/person_repository'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
 require_relative 'shared_examples_for_mongo_party_repository'
@@ -7,9 +7,9 @@ require_relative 'shared_examples_for_mongo_party_repository'
 module KobzaCRM
   module Persistence
     module Tests
-      describe PersonMapper do
+      describe PersonRepository do
         subject { repository }
-        let(:repository) { PersonMapper.new(database_name) }
+        let(:repository) { PersonRepository.new(database_name) }
 
         let(:collection_name) { 'people' }
 

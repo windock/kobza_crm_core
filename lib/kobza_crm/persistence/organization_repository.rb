@@ -1,5 +1,5 @@
 require 'kobza_crm/organization'
-require 'kobza_crm/persistence/party_mapper'
+require 'kobza_crm/persistence/party_repository'
 
 module KobzaCRM
   module Persistence
@@ -11,10 +11,10 @@ module KobzaCRM
       end
     end
 
-    class OrganizationMapper < PartyMapper
+    class OrganizationRepository < PartyRepository
       def mapping_strategy
         OrganizationMappingStrategy.instance(
-          address_mapping_strategy, role_mapper)
+          address_mapping_strategy, role_repository)
       end
 
       def mongo_collection_name
