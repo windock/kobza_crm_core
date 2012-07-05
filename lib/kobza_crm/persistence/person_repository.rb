@@ -3,7 +3,7 @@ require 'kobza_crm/persistence/party_repository'
 
 module KobzaCRM
   module Persistence
-    class PersonMappingStrategy < PartyMappingStrategy
+    class PersonMapper < PartyMapper
       include NoPublicNew
 
       def build_new(dto)
@@ -12,9 +12,9 @@ module KobzaCRM
     end
 
     class PersonRepository < PartyRepository
-      def mapping_strategy
-        PersonMappingStrategy.instance(
-          address_mapping_strategy, role_repository)
+      def mapper
+        PersonMapper.instance(
+          address_mapper, role_repository)
       end
 
       def mongo_collection_name

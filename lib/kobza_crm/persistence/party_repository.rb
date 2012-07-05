@@ -1,21 +1,21 @@
 require 'mongobzar'
-require 'kobza_crm/persistence/address_mapping_strategy'
+require 'kobza_crm/persistence/address_mapper'
 require 'kobza_crm/persistence/role_repository'
 
 module KobzaCRM
   module Persistence
-    class PartyMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
-      def initialize(address_mapping_strategy, role_mapping_strategy)
-        @address_mapping_strategy = address_mapping_strategy
-        @role_mapping_strategy = role_mapping_strategy
+    class PartyMapper < Mongobzar::Mapper::EntityMapper
+      def initialize(address_mapper, role_mapper)
+        @address_mapper = address_mapper
+        @role_mapper = role_mapper
       end
 
       def build_domain_object!(party, dto)
-        address_mapping_strategy.build_domain_objects(dto['addresses']).each do |address|
+        address_mapper.build_domain_objects(dto['addresses']).each do |address|
           party.add_address(address)
         end
 
-        role_mapping_strategy.find_dependent_collection(party).each do|role|
+        role_mapper.find_dependent_collection(party).each do|role|
           party.add_role(role)
         end
       end
@@ -23,19 +23,19 @@ module KobzaCRM
       def build_dto!(dto, party)
         dto['name'] = party.name
 
-        dto['addresses'] = address_mapping_strategy.build_dtos(
+        dto['addresses'] = address_mapper.build_dtos(
           party.addresses
         )
       end
 
       private
-        attr_reader :address_mapping_strategy
-        attr_reader :role_mapping_strategy
+        attr_reader :address_mapper
+        attr_reader :role_mapper
 
     end
 
     class PartyRepository < Mongobzar::Repository::Repository
-      attr_reader :mapping_strategy
+      attr_reader :mapper
 
       def insert(party)
         super
@@ -57,8 +57,8 @@ module KobzaCRM
           RoleRepository.instance(database_name)
         end
 
-        def address_mapping_strategy
-          AddressMappingStrategy.instance
+        def address_mapper
+          AddressMapper.instance
         end
     end
   end

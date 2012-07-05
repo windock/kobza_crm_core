@@ -7,10 +7,10 @@ module KobzaCRM
     class RoleRepository < Mongobzar::Repository::DependentRepository
       include NoPublicNew
 
-      def mapping_strategy
-        Mongobzar::MappingStrategy::PolymorphicMappingStrategy.new([
-          CustomerRoleMappingStrategy.instance,
-          CustomerServiceRepresentativeRoleMappingStrategy.instance
+      def mapper
+        Mongobzar::Mapper::PolymorphicMapper.new([
+          CustomerRoleMapper.instance,
+          CustomerServiceRepresentativeRoleMapper.instance
         ])
       end
 
@@ -23,7 +23,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerServiceRepresentativeRoleMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
+    class CustomerServiceRepresentativeRoleMapper < Mongobzar::Mapper::EntityMapper
       include NoPublicNew
 
       def type_code
@@ -43,7 +43,7 @@ module KobzaCRM
       end
     end
 
-    class CustomerRoleMappingStrategy < Mongobzar::MappingStrategy::EntityMappingStrategy
+    class CustomerRoleMapper < Mongobzar::Mapper::EntityMapper
       include NoPublicNew
 
       def build_domain_object!(role, dto)

@@ -4,17 +4,17 @@ require 'kobza_crm/web_page_address'
 
 module KobzaCRM
   module Persistence
-    class AddressMappingStrategy
+    class AddressMapper
       include NoPublicNew
       def self.instance
-        Mongobzar::MappingStrategy::PolymorphicMappingStrategy.new([
-          EmailAddressMappingStrategy.new,
-          WebPageAddressMappingStrategy.new
+        Mongobzar::Mapper::PolymorphicMapper.new([
+          EmailAddressMapper.new,
+          WebPageAddressMapper.new
         ])
       end
     end
 
-    class EmailAddressMappingStrategy < Mongobzar::MappingStrategy::ValueObjectMappingStrategy
+    class EmailAddressMapper < Mongobzar::Mapper::ValueObjectMapper
       def type_code
         'email'
       end
@@ -33,7 +33,7 @@ module KobzaCRM
       end
     end
 
-    class WebPageAddressMappingStrategy < Mongobzar::MappingStrategy::ValueObjectMappingStrategy
+    class WebPageAddressMapper < Mongobzar::Mapper::ValueObjectMapper
       def type_code
         'web_page'
       end
