@@ -11,7 +11,7 @@ module KobzaCRM
           repository = PartyRepository.new(database_name, collection_name)
           repository.mapper = OrganizationMapper.instance(
             AddressMapper.instance,
-            RoleRepository.instance(database_name)
+            RoleRepository.instance(database_name, collection_name)
           )
           repository
         }
