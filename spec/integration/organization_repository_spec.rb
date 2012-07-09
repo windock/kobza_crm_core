@@ -1,7 +1,8 @@
 require 'mongobzar'
 require 'kobza_crm/persistence/organization_mapper'
 require 'kobza_crm/persistence/customer_role_mapper'
-require 'kobza_crm/persistence/address_mapper'
+require 'kobza_crm/persistence/email_address_mapper'
+require 'kobza_crm/persistence/web_page_address_mapper'
 require_relative 'shared_examples_for_mongo_party_repository'
 
 module KobzaCRM
@@ -20,8 +21,12 @@ module KobzaCRM
 
           repository = PartyRepository.new(database_name, collection_name)
           repository.role_repository = role_repository
+          address_mapper = Mongobzar::Mapper::PolymorphicMapper.new([
+            EmailAddressMapper.new,
+            WebPageAddressMapper.new
+          ])
           repository.mapper = OrganizationMapper.instance(
-            AddressMapper.instance,
+            address_mapper,
             role_repository
           )
           repository
