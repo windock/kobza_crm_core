@@ -7,19 +7,8 @@ module KobzaCRM
     class RoleRepository < Mongobzar::Repository::DependentRepository
       include NoPublicNew
 
-      def mapper
-        Mongobzar::Mapper::PolymorphicMapper.new([
-          CustomerRoleMapper.instance,
-          CustomerServiceRepresentativeRoleMapper.instance
-        ])
-      end
-
       def foreign_key
         'party_id'
-      end
-
-      def mongo_collection_name
-        'party_roles'
       end
     end
 
