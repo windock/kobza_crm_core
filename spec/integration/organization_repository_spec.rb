@@ -13,6 +13,7 @@ module KobzaCRM
             CustomerRoleMapper.instance,
             CustomerServiceRepresentativeRoleMapper.instance
           ])
+          role_repository.foreign_key = 'party_id'
 
           repository = PartyRepository.new(database_name, collection_name)
           repository.role_repository = role_repository

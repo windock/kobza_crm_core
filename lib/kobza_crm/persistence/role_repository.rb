@@ -7,9 +7,7 @@ module KobzaCRM
     class RoleRepository < Mongobzar::Repository::DependentRepository
       include NoPublicNew
 
-      def foreign_key
-        'party_id'
-      end
+      attr_accessor :foreign_key
     end
 
     class CustomerServiceRepresentativeRoleMapper < Mongobzar::Mapper::EntityMapper
