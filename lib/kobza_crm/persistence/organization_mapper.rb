@@ -10,16 +10,5 @@ module KobzaCRM
         Organization.new(dto['name'])
       end
     end
-
-    class OrganizationRepository < PartyRepository
-      def mapper
-        OrganizationMapper.instance(
-          address_mapper, role_repository)
-      end
-
-      def mongo_collection_name
-        'organizations'
-      end
-    end
   end
 end

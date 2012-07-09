@@ -10,17 +10,5 @@ module KobzaCRM
         Person.new(dto['name'])
       end
     end
-
-    class PersonRepository < PartyRepository
-      def mapper
-        PersonMapper.instance(
-          address_mapper, role_repository)
-      end
-
-      def mongo_collection_name
-        'people'
-      end
-    end
-
   end
 end

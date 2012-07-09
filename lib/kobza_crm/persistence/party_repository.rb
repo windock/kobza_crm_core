@@ -35,7 +35,14 @@ module KobzaCRM
     end
 
     class PartyRepository < Mongobzar::Repository::Repository
-      attr_reader :mapper
+      attr_accessor :mapper
+
+      def initialize(database_name, mongo_collection_name)
+        super(database_name)
+        @mongo_collection_name = mongo_collection_name
+      end
+
+      attr_reader :mongo_collection_name
 
       def insert(party)
         super
@@ -55,10 +62,6 @@ module KobzaCRM
       protected
         def role_repository
           RoleRepository.instance(database_name)
-        end
-
-        def address_mapper
-          AddressMapper.instance
         end
     end
   end
