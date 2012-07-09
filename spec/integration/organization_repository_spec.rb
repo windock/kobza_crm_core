@@ -8,10 +8,13 @@ module KobzaCRM
       describe PartyRepository do
         subject { repository }
         let(:repository) {
+          role_repository = RoleRepository.instance(database_name, collection_name)
+
           repository = PartyRepository.new(database_name, collection_name)
+          repository.role_repository = role_repository
           repository.mapper = OrganizationMapper.instance(
             AddressMapper.instance,
-            RoleRepository.instance(database_name, collection_name)
+            role_repository
           )
           repository
         }

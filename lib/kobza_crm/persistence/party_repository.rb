@@ -50,10 +50,7 @@ module KobzaCRM
         role_repository.clear_everything!
       end
 
-      protected
-        def role_repository
-          RoleRepository.instance(database_name, mongo_collection_name)
-        end
+      attr_accessor :role_repository
     end
   end
 end
