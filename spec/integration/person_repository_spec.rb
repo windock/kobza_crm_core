@@ -2,6 +2,8 @@ require 'mongobzar'
 require 'kobza_crm/persistence/person_mapper'
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
+require 'kobza_crm/persistence/customer_role_mapper'
+require 'kobza_crm/persistence/address_mapper'
 require_relative 'shared_examples_for_mongo_party_repository'
 
 module KobzaCRM
@@ -13,7 +15,8 @@ module KobzaCRM
           role_repository = Mongobzar::Repository::DependentRepository.new(database_name, 'party_roles')
           role_repository.mapper = Mongobzar::Mapper::PolymorphicMapper.new([
             CustomerRoleMapper.instance,
-            CustomerServiceRepresentativeRoleMapper.instance
+            InheritanceMapper.new(CustomerServiceRepresentativeRole,
+                                  'customer_service_representative')
           ])
           role_repository.foreign_key = 'party_id'
 
