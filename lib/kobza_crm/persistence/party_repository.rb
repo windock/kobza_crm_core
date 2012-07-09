@@ -1,6 +1,7 @@
 require 'mongobzar'
 require 'kobza_crm/persistence/address_mapper'
-require 'kobza_crm/persistence/role_repository'
+require 'kobza_crm/persistence/customer_role_mapper'
+require 'kobza_crm/persistence/customer_service_representative_role_mapper'
 
 module KobzaCRM
   module Persistence

@@ -8,7 +8,7 @@ module KobzaCRM
       describe PartyRepository do
         subject { repository }
         let(:repository) {
-          role_repository = RoleRepository.instance(database_name, 'party_roles')
+          role_repository = Mongobzar::Repository::DependentRepository.new(database_name, 'party_roles')
           role_repository.mapper = Mongobzar::Mapper::PolymorphicMapper.new([
             CustomerRoleMapper.instance,
             CustomerServiceRepresentativeRoleMapper.instance
