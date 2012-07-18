@@ -22,7 +22,7 @@ module KobzaCRM
           context 'when a party with id of added is updated' do
             #TODO: the same should be done for adding
             context 'with new role' do
-              let(:role) { CustomerRole.new }
+              let(:role) { Domain::CustomerRole.new }
 
               before do
                 party.add_role(role)

@@ -9,12 +9,12 @@ module KobzaCRM
 
       def self.instance
         Mongobzar::Mapper::InheritanceMapper.new(
-          CustomerRole, 'customer',
+          Domain::CustomerRole, 'customer',
           Mongobzar::Mapper::EntityMapper.new(new))
       end
 
       def build_new(dto)
-        CustomerRole.new
+        Domain::CustomerRole.new
       end
 
       def build_domain_object!(role, dto)

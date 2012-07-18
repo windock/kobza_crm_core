@@ -1,9 +1,11 @@
 module KobzaCRM
-  class WebPageAddress
-    def initialize(url)
-      @url = url
-    end
+  module Domain
+    class WebPageAddress
+      def initialize(url)
+        @url = url
+      end
 
-    attr_reader :url
+      attr_reader :url
+    end
   end
 end

@@ -6,7 +6,7 @@ module KobzaCRM
     end
 
     def execute
-      @organization = Organization.new(@name)
+      @organization = Domain::Organization.new(@name)
       @organization_repository.insert(organization)
     end
 

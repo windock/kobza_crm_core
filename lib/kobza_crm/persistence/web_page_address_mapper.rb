@@ -8,7 +8,7 @@ module KobzaCRM
 
       def self.instance
         Mongobzar::Mapper::InheritanceMapper.new(
-          WebPageAddress, 'web_page',
+          Domain::WebPageAddress, 'web_page',
           Mongobzar::Mapper::ValueObjectMapper.new(new)
         )
       end
@@ -18,7 +18,7 @@ module KobzaCRM
       end
 
       def build_new(dto)
-        WebPageAddress.new(dto['url'])
+        Domain::WebPageAddress.new(dto['url'])
       end
     end
 

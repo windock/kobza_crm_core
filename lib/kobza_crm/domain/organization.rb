@@ -1,6 +1,8 @@
 require 'kobza_crm/domain/party'
 
 module KobzaCRM
-  class Organization < Party
+  module Domain
+    class Organization < Party
+    end
   end
 end

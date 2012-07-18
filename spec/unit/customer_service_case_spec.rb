@@ -3,7 +3,7 @@ require_relative 'shared_examples_for_has_identity'
 
 module KobzaCRM
   module Test
-    describe CustomerServiceCase do
+    describe Domain::CustomerServiceCase do
       it_behaves_like 'has identity'
 
       let(:title) { 'Sample title' }
@@ -11,7 +11,7 @@ module KobzaCRM
       let(:raised_by) { stub }
 
       def new_customer_service_case
-        CustomerServiceCase.new(
+        Domain::CustomerServiceCase.new(
           title, short_description, raised_by)
       end
 
@@ -44,7 +44,7 @@ module KobzaCRM
         it 'is false if any attribute is not equal' do
           c1 = new_customer_service_case
           c1.id = 1
-          c2 = CustomerServiceCase.new(
+          c2 = Domain::CustomerServiceCase.new(
             'title2', short_description, raised_by)
           c2.id = 2
 

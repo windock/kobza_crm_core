@@ -6,7 +6,7 @@ module KobzaCRM
     attr_accessor :customer_value
 
     def build_role
-      role = CustomerRole.new
+      role = Domain::CustomerRole.new
       role.customer_value = customer_value
       role
     end

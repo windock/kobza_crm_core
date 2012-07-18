@@ -24,7 +24,7 @@ module KobzaCRM
         addresses = person_repository.find(@person_id).addresses
         email_address = addresses.first
 
-        email_address.should be_kind_of(EmailAddress)
+        email_address.should be_kind_of(Domain::EmailAddress)
         email_address.email_address.should == sample_email
       end
     end

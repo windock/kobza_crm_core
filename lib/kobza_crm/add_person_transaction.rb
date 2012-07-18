@@ -8,7 +8,7 @@ module KobzaCRM
     end
 
     def execute
-      @person = Person.new(@name)
+      @person = Domain::Person.new(@name)
       @person_repository.insert(@person)
     end
 

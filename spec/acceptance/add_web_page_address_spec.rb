@@ -23,7 +23,7 @@ module KobzaCRM
         addresses = person_repository.find(@person_id).addresses
         web_page_address = addresses.first
 
-        web_page_address.should be_kind_of(WebPageAddress)
+        web_page_address.should be_kind_of(Domain::WebPageAddress)
         web_page_address.url.should == sample_url
       end
     end

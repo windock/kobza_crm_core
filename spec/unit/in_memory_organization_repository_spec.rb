@@ -9,8 +9,8 @@ module KobzaCRM
 
       it_behaves_like 'an in memory party repository'
 
-      let(:party) { Organization.new('Orga') }
-      let(:other_party) { Organization.new('Borka') }
+      let(:party) { Domain::Organization.new('Orga') }
+      let(:other_party) { Domain::Organization.new('Borka') }
     end
   end
 end

@@ -10,8 +10,8 @@ module KobzaCRM
       include_context 'an in memory repository context'
       it_behaves_like 'an in memory party repository'
 
-      let(:party) { Person.new('bob') }
-      let(:other_party) { Person.new('bill') }
+      let(:party) { Domain::Person.new('bob') }
+      let(:other_party) { Domain::Person.new('bill') }
 
     end
   end

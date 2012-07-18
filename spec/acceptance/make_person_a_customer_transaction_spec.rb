@@ -29,7 +29,7 @@ module KobzaCRM
       it 'adds Customer role to the Person' do
         @found_person.roles.size.should == 1
 
-        @role.should be_kind_of(CustomerRole)
+        @role.should be_kind_of(Domain::CustomerRole)
         @role.customer_value.should == 3
       end
 

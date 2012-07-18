@@ -8,7 +8,7 @@ module KobzaCRM
 
       def self.instance
         Mongobzar::Mapper::InheritanceMapper.new(
-          EmailAddress, 'email',
+          Domain::EmailAddress, 'email',
           Mongobzar::Mapper::ValueObjectMapper.new(new))
       end
 
@@ -17,7 +17,7 @@ module KobzaCRM
       end
 
       def build_new(dto)
-        EmailAddress.new(dto['email_address'])
+        Domain::EmailAddress.new(dto['email_address'])
       end
     end
   end

@@ -75,7 +75,7 @@ module KobzaCRM
               let(:found_role) { found_party.roles.first }
 
               context 'CustomerServiceRepresentativeRole' do
-                let(:role) { CustomerServiceRepresentativeRole.new }
+                let(:role) { Domain::CustomerServiceRepresentativeRole.new }
 
                 describe 'it loads party with loaded roles' do
                   it 'with name' do
@@ -90,7 +90,7 @@ module KobzaCRM
 
               context 'CustomerRole' do
                 let(:role) do
-                  role = CustomerRole.new
+                  role = Domain::CustomerRole.new
                   role.customer_value = 3
                   role
                 end
@@ -114,7 +114,7 @@ module KobzaCRM
             context 'web page address' do
               describe 'it loads party with loaded address' do
                 it 'with url' do
-                  web_page_address = WebPageAddress.new(sample_url)
+                  web_page_address = Domain::WebPageAddress.new(sample_url)
                   party.add_address(web_page_address)
 
                   subject.insert(party)
@@ -128,7 +128,7 @@ module KobzaCRM
             context 'email address' do
               describe 'it loads party with loaded address do' do
                 it 'with email_address' do
-                  email_address = EmailAddress.new(sample_email)
+                  email_address = Domain::EmailAddress.new(sample_email)
                   party.add_address(email_address)
 
                   subject.insert(party)
@@ -181,7 +181,7 @@ module KobzaCRM
 
             context 'CustomerServiceRepresentative' do
               let(:role) do
-                CustomerServiceRepresentativeRole.new
+                Domain::CustomerServiceRepresentativeRole.new
               end
 
               let(:role_documents) { db['party_roles'].find.to_a }
@@ -202,7 +202,7 @@ module KobzaCRM
 
             context 'CustomerRole' do
               let(:role) do
-                role = CustomerRole.new
+                role = Domain::CustomerRole.new
                 role.customer_value = 4
                 role
               end
@@ -230,7 +230,7 @@ module KobzaCRM
 
           context 'with web page address' do
             before do
-              web_page_address = WebPageAddress.new(sample_url)
+              web_page_address = Domain::WebPageAddress.new(sample_url)
               party.add_address(web_page_address)
               subject.insert(party)
             end
@@ -258,7 +258,7 @@ module KobzaCRM
 
           context 'with email address' do
             before do
-              email_address = EmailAddress.new(sample_email)
+              email_address = Domain::EmailAddress.new(sample_email)
               party.add_address(email_address)
               subject.insert(party)
             end

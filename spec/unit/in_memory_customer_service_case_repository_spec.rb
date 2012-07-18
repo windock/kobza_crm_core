@@ -10,11 +10,11 @@ module KobzaCRM
       end
 
       let(:domain_object) do
-        CustomerServiceCase.new('title', 'description', stub)
+        Domain::CustomerServiceCase.new('title', 'description', stub)
       end
 
       let(:other_domain_object) do
-        CustomerServiceCase.new('title2', 'description', stub)
+        Domain::CustomerServiceCase.new('title2', 'description', stub)
       end
 
       def update_domain_object(customer_service_case)

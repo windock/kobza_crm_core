@@ -10,8 +10,8 @@ module KobzaCRM
 
         let(:collection_name) { 'organizations' }
 
-        let(:party) { Organization.new(sample_name) }
-        let(:other_party) { Organization.new('Bobka') }
+        let(:party) { Domain::Organization.new(sample_name) }
+        let(:other_party) { Domain::Organization.new('Bobka') }
 
         it_behaves_like 'a mongo party repository'
       end

@@ -12,7 +12,7 @@ module KobzaCRM
       end
 
       def build_new(dto)
-        Organization.new(dto['name'])
+        Domain::Organization.new(dto['name'])
       end
     end
   end

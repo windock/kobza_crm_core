@@ -12,7 +12,7 @@ module KobzaCRM
       end
 
       def build_new(dto)
-        Person.new(dto['name'])
+        Domain::Person.new(dto['name'])
       end
     end
   end

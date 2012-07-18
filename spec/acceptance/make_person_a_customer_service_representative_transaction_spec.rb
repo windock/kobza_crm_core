@@ -27,7 +27,7 @@ module KobzaCRM
         found_person.roles.size.should == 1
         role = found_person.roles.first
 
-        role.should be_kind_of(CustomerServiceRepresentativeRole)
+        role.should be_kind_of(Domain::CustomerServiceRepresentativeRole)
       end
     end
   end

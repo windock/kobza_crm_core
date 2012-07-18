@@ -9,14 +9,14 @@ module KobzaCRM
 
       def self.instance
         Mongobzar::Mapper::InheritanceMapper.new(
-          CustomerServiceRepresentativeRole,
+          Domain::CustomerServiceRepresentativeRole,
           'customer_service_representative',
           Mongobzar::Mapper::EntityMapper.new(
             new))
       end
 
       def build_new(dto)
-        CustomerServiceRepresentativeRole.new
+        Domain::CustomerServiceRepresentativeRole.new
       end
     end
   end

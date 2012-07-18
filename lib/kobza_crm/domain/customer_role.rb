@@ -1,11 +1,13 @@
 require 'kobza_crm/domain/party_role'
 
 module KobzaCRM
-  class CustomerRole < PartyRole
-    attr_accessor :customer_value
+  module Domain
+    class CustomerRole < PartyRole
+      attr_accessor :customer_value
 
-    def initialize
-      @name = 'customer'
+      def initialize
+        @name = 'customer'
+      end
     end
   end
 end
