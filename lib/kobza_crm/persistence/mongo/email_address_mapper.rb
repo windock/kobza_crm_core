@@ -1,10 +1,7 @@
 require 'kobza_crm/domain/email_address'
-require 'kobza_crm/no_public_new'
 
 module KobzaCRM module Persistence module Mongo
   class EmailAddressMapper < Mongobzar::Mapper::Mapper
-    include NoPublicNew
-
     def self.instance
       Mongobzar::Mapper::InheritanceMapper.new(
         Domain::EmailAddress, 'email',

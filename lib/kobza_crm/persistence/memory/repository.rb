@@ -1,9 +1,8 @@
-require 'kobza_crm/no_public_new'
+require 'mongobzar/utility/bson_id_generator'
 
 module KobzaCRM module Persistence module Memory
   class Repository
     attr_accessor :id_generator
-    include NoPublicNew
 
     def initialize
       @entities = {}

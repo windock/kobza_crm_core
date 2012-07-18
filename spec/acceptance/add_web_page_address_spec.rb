@@ -6,7 +6,7 @@ module KobzaCRM module Service module Test
   # I want to add web page address to the party,
   # so that I may contact it later
   describe AddWebPageAddressTransaction do
-    let(:person_repository) { Persistence::Memory::Repository.instance }
+    let(:person_repository) { Persistence::Memory::PartyRepository.new }
     let(:sample_url) { 'http://sample.example.com' }
 
     before do

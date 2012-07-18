@@ -1,11 +1,8 @@
-require 'kobza_crm/no_public_new'
 require 'kobza_crm/domain/customer_role'
 require 'mongobzar/mapper/inheritance_mapper'
 
 module KobzaCRM module Persistence module Mongo
   class CustomerRoleMapper
-    include NoPublicNew
-
     def self.instance
       Mongobzar::Mapper::InheritanceMapper.new(
         Domain::CustomerRole, 'customer',

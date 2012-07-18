@@ -15,7 +15,7 @@ module KobzaCRM module Persistence module Memory module Test
     def update_domain_object(party)
       party.name = 'New name'
     end
-    subject { PartyRepository.instance }
+    subject { PartyRepository.new }
 
     describe '#update' do
       context 'when a party was already added' do
