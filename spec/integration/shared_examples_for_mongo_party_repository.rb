@@ -1,6 +1,12 @@
 require 'kobza_crm/email_address'
 require 'kobza_crm/web_page_address'
 require 'kobza_crm/customer_role'
+
+require 'kobza_crm/persistence/customer_role_mapper'
+require 'kobza_crm/persistence/customer_service_representative_role_mapper'
+
+require 'kobza_crm/persistence/email_address_mapper'
+require 'kobza_crm/persistence/web_page_address_mapper'
 require_relative 'shared_examples_for_mongo_repository'
 
 module KobzaCRM
@@ -8,6 +14,28 @@ module KobzaCRM
     module Test
       shared_examples 'a mongo party repository' do
         include_context 'a mongo repository context'
+
+        subject { repository }
+        let(:repository) do
+          role_repository = Mongobzar::Repository::DependentRepository.new(database_name, 'party_roles')
+          role_repository.mapper = Mongobzar::Mapper::PolymorphicMapper.new([
+            CustomerRoleMapper.instance,
+            CustomerServiceRepresentativeRoleMapper.instance
+          ])
+          role_repository.foreign_key = 'party_id'
+
+          repository = PartyRepository.new(database_name, collection_name)
+          repository.role_repository = role_repository
+          address_mapper = Mongobzar::Mapper::PolymorphicMapper.new([
+            EmailAddressMapper.instance,
+            WebPageAddressMapper.instance
+          ])
+          repository.mapper = mapper_class.instance(
+            address_mapper,
+            role_repository
+          )
+          repository
+        end
 
         let(:domain_object) { party }
         let(:other_domain_object) { other_party }

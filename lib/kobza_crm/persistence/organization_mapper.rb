@@ -1,10 +1,15 @@
 require 'kobza_crm/organization'
-require 'kobza_crm/persistence/party_repository'
+require 'kobza_crm/persistence/party_mapper'
+require 'kobza_crm/no_public_new'
 
 module KobzaCRM
   module Persistence
     class OrganizationMapper < PartyMapper
       include NoPublicNew
+
+      def self.instance(address_mapper, role_mapper)
+        Mongobzar::Mapper::EntityMapper.new(new(address_mapper, role_mapper))
+      end
 
       def build_new(dto)
         Organization.new(dto['name'])

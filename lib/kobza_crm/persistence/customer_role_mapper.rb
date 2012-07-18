@@ -1,14 +1,20 @@
 require 'kobza_crm/no_public_new'
 require 'kobza_crm/customer_role'
-require 'kobza_crm/persistence/inheritance_mapper'
+require 'mongobzar/mapper/inheritance_mapper'
 
 module KobzaCRM
   module Persistence
-    class CustomerRoleMapper < InheritanceMapper
+    class CustomerRoleMapper
       include NoPublicNew
 
       def self.instance
-        new(CustomerRole, 'customer')
+        Mongobzar::Mapper::InheritanceMapper.new(
+          CustomerRole, 'customer',
+          Mongobzar::Mapper::EntityMapper.new(new))
+      end
+
+      def build_new(dto)
+        CustomerRole.new
       end
 
       def build_domain_object!(role, dto)
@@ -16,7 +22,6 @@ module KobzaCRM
       end
 
       def build_dto!(dto, role)
-        super
         dto['customer_value'] = role.customer_value
       end
     end

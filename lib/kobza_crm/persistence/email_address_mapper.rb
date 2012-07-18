@@ -1,23 +1,23 @@
 require 'kobza_crm/email_address'
+require 'kobza_crm/no_public_new'
 
 module KobzaCRM
   module Persistence
-    class EmailAddressMapper < Mongobzar::Mapper::ValueObjectMapper
-      def type_code
-        'email'
+    class EmailAddressMapper < Mongobzar::Mapper::Mapper
+      include NoPublicNew
+
+      def self.instance
+        Mongobzar::Mapper::InheritanceMapper.new(
+          EmailAddress, 'email',
+          Mongobzar::Mapper::ValueObjectMapper.new(new))
       end
 
       def build_dto!(dto, address)
-        dto['type'] = type_code
         dto['email_address'] = address.email_address
       end
 
       def build_new(dto)
-        domain_object_class.new(dto['email_address'])
-      end
-
-      def domain_object_class
-        EmailAddress
+        EmailAddress.new(dto['email_address'])
       end
     end
   end
