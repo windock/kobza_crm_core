@@ -6,12 +6,12 @@ module KobzaCRM module Domain module Test
     it_behaves_like 'has identity'
 
     let(:title) { 'Sample title' }
-    let(:short_description) { 'Short description' }
+    let(:brief_description) { 'Short description' }
     let(:raised_by) { stub }
 
     def new_customer_service_case
       CustomerServiceCase.new(
-        title, short_description, raised_by)
+        title, brief_description, raised_by)
     end
 
     subject do
@@ -24,9 +24,9 @@ module KobzaCRM module Domain module Test
       subject.title.should == title
     end
 
-    it 'may be created, given title, short_description and raised_by' do
+    it 'may be created, given title, brief_description and raised_by' do
       subject.title.should == title
-      subject.short_description.should == short_description
+      subject.brief_description.should == brief_description
       subject.raised_by.should == raised_by
     end
 
@@ -44,7 +44,7 @@ module KobzaCRM module Domain module Test
         c1 = new_customer_service_case
         c1.id = 1
         c2 = CustomerServiceCase.new(
-          'title2', short_description, raised_by)
+          'title2', brief_description, raised_by)
         c2.id = 2
 
         c1.should_not == c2

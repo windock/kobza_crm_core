@@ -24,7 +24,6 @@ module KobzaCRM module Service module Test
     let(:raised_by) { @person }
 
     it 'adds CustomerServiceCase to Repository' do
-      pending
       t = OpenCustomerServiceCaseTransaction.new(
         title, brief_description, raised_by,
         customer_service_case_repository)
