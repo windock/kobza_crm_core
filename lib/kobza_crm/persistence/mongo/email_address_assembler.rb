@@ -1,11 +1,11 @@
 require 'kobza_crm/domain/email_address'
 
 module KobzaCRM module Persistence module Mongo
-  class EmailAddressMapper < Mongobzar::Mapper::Mapper
+  class EmailAddressAssembler < Mongobzar::Assembler::Assembler
     def self.instance
-      Mongobzar::Mapper::InheritanceMapper.new(
+      Mongobzar::Assembler::InheritanceAssembler.new(
         Domain::EmailAddress, 'email',
-        Mongobzar::Mapper::ValueObjectMapper.new(new))
+        Mongobzar::Assembler::ValueObjectAssembler.new(new))
     end
 
     def build_dto!(dto, address)

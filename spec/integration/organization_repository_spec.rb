@@ -1,10 +1,10 @@
-require 'kobza_crm/persistence/mongo/organization_mapper'
+require 'kobza_crm/persistence/mongo/organization_assembler'
 require 'kobza_crm/persistence/mongo/party_repository'
 require_relative 'shared_examples_for_mongo_party_repository'
 
 module KobzaCRM module Persistence module Mongo module Test
   describe PartyRepository do
-    let(:mapper_class) { OrganizationMapper }
+    let(:assembler_class) { OrganizationAssembler }
 
     let(:collection_name) { 'organizations' }
 

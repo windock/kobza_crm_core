@@ -1,12 +1,12 @@
 require 'kobza_crm/domain/customer_role'
-require 'mongobzar/mapper/inheritance_mapper'
+require 'mongobzar/assembler/inheritance_assembler'
 
 module KobzaCRM module Persistence module Mongo
-  class CustomerRoleMapper
+  class CustomerRoleAssembler
     def self.instance
-      Mongobzar::Mapper::InheritanceMapper.new(
+      Mongobzar::Assembler::InheritanceAssembler.new(
         Domain::CustomerRole, 'customer',
-        Mongobzar::Mapper::EntityMapper.new(new))
+        Mongobzar::Assembler::EntityAssembler.new(new))
     end
 
     def build_new(dto)

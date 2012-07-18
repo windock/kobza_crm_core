@@ -2,11 +2,11 @@ require 'kobza_crm/domain/email_address'
 require 'kobza_crm/domain/web_page_address'
 require 'kobza_crm/domain/customer_role'
 
-require 'kobza_crm/persistence/mongo/customer_role_mapper'
-require 'kobza_crm/persistence/mongo/customer_service_representative_role_mapper'
+require 'kobza_crm/persistence/mongo/customer_role_assembler'
+require 'kobza_crm/persistence/mongo/customer_service_representative_role_assembler'
 
-require 'kobza_crm/persistence/mongo/email_address_mapper'
-require 'kobza_crm/persistence/mongo/web_page_address_mapper'
+require 'kobza_crm/persistence/mongo/email_address_assembler'
+require 'kobza_crm/persistence/mongo/web_page_address_assembler'
 require_relative 'shared_examples_for_mongo_repository'
 
 module KobzaCRM module Persistence module Mongo module Test
@@ -16,20 +16,20 @@ module KobzaCRM module Persistence module Mongo module Test
     subject { repository }
     let(:repository) do
       role_repository = Mongobzar::Repository::DependentRepository.new(database_name, 'party_roles')
-      role_repository.mapper = Mongobzar::Mapper::PolymorphicMapper.new([
-        CustomerRoleMapper.instance,
-        CustomerServiceRepresentativeRoleMapper.instance
+      role_repository.assembler = Mongobzar::Assembler::PolymorphicAssembler.new([
+        CustomerRoleAssembler.instance,
+        CustomerServiceRepresentativeRoleAssembler.instance
       ])
       role_repository.foreign_key = 'party_id'
 
       repository = PartyRepository.new(database_name, collection_name)
       repository.role_repository = role_repository
-      address_mapper = Mongobzar::Mapper::PolymorphicMapper.new([
-        EmailAddressMapper.instance,
-        WebPageAddressMapper.instance
+      address_assembler = Mongobzar::Assembler::PolymorphicAssembler.new([
+        EmailAddressAssembler.instance,
+        WebPageAddressAssembler.instance
       ])
-      repository.mapper = mapper_class.instance(
-        address_mapper,
+      repository.assembler = assembler_class.instance(
+        address_assembler,
         role_repository
       )
       repository

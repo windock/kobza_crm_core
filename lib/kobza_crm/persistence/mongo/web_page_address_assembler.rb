@@ -1,11 +1,11 @@
 require 'kobza_crm/domain/web_page_address'
 
 module KobzaCRM module Persistence module Mongo
-  class WebPageAddressMapper < Mongobzar::Mapper::Mapper
+  class WebPageAddressAssembler < Mongobzar::Assembler::Assembler
     def self.instance
-      Mongobzar::Mapper::InheritanceMapper.new(
+      Mongobzar::Assembler::InheritanceAssembler.new(
         Domain::WebPageAddress, 'web_page',
-        Mongobzar::Mapper::ValueObjectMapper.new(new)
+        Mongobzar::Assembler::ValueObjectAssembler.new(new)
       )
     end
 
