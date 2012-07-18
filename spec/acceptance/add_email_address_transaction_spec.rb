@@ -6,7 +6,7 @@ module KobzaCRM module Service module Test
   # I want to add email address to the party,
   # so that I may contact it later by email
   describe AddEmailAddressTransaction do
-    let(:person_repository) { InMemoryPersonRepository.instance }
+    let(:person_repository) { Persistence::Memory::PersonRepository.instance }
 
     before do
       t = AddPersonTransaction.new('Bob', person_repository)

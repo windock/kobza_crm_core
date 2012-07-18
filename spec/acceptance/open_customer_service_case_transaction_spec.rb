@@ -7,11 +7,11 @@ module KobzaCRM module Service module Test
   # so that I may organize Communications with him
   describe OpenCustomerServiceCaseTransaction do
     let(:customer_service_case_repository) do
-      InMemoryCustomerServiceCaseRepository.instance
+      Persistence::Memory::CustomerServiceCaseRepository.instance
     end
 
     before do
-      person_repository = InMemoryPersonRepository.instance
+      person_repository = Persistence::Memory::PersonRepository.instance
       t = AddPersonTransaction.new('Bob', person_repository)
       t.execute
       @person = t.person

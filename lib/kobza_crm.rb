@@ -3,8 +3,8 @@ require 'kobza_crm/version'
 require 'kobza_crm/domain/person'
 require 'kobza_crm/domain/organization'
 
-require 'kobza_crm/in_memory_person_repository'
-require 'kobza_crm/in_memory_organization_repository'
+require 'kobza_crm/persistence/memory/person_repository'
+require 'kobza_crm/persistence/memory/organization_repository'
 
 require 'kobza_crm/service/add_email_address_transaction'
 require 'kobza_crm/service/add_web_page_address_transaction'

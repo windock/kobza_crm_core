@@ -1,8 +1,9 @@
-require 'kobza_crm/repository'
+require 'kobza_crm/no_public_new'
 
-module KobzaCRM
-  class InMemoryRepository < Repository
+module KobzaCRM module Persistence module Memory
+  class Repository
     attr_accessor :id_generator
+    include NoPublicNew
 
     def initialize
       @entities = {}
@@ -34,4 +35,4 @@ module KobzaCRM
       attr_reader :entities
 
   end
-end
+end end end

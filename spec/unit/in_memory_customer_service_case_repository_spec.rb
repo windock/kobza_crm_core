@@ -1,11 +1,11 @@
-require 'kobza_crm/in_memory_customer_service_case_repository'
+require 'kobza_crm/persistence/memory/customer_service_case_repository'
 require 'kobza_crm/domain/customer_service_case'
 require_relative 'shared_examples_for_in_memory_repository'
 
-module KobzaCRM module Test
-  describe InMemoryCustomerServiceCaseRepository do
+module KobzaCRM module Persistence module Memory module Test
+  describe CustomerServiceCaseRepository do
     subject do
-      InMemoryCustomerServiceCaseRepository.instance
+      CustomerServiceCaseRepository.instance
     end
 
     let(:domain_object) do
@@ -22,4 +22,4 @@ module KobzaCRM module Test
 
     it_behaves_like 'an in memory repository'
   end
-end end
+end end end end
