@@ -1,4 +1,4 @@
-require 'kobza_crm/email_address'
+require 'kobza_crm/domain/email_address'
 require 'kobza_crm/no_public_new'
 
 module KobzaCRM

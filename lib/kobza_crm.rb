@@ -1,7 +1,7 @@
 require 'kobza_crm/version'
 
-require 'kobza_crm/person'
-require 'kobza_crm/organization'
+require 'kobza_crm/domain/person'
+require 'kobza_crm/domain/organization'
 
 require 'kobza_crm/in_memory_person_repository'
 require 'kobza_crm/in_memory_organization_repository'

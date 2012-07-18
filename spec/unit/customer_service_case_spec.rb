@@ -1,4 +1,4 @@
-require 'kobza_crm/customer_service_case'
+require 'kobza_crm/domain/customer_service_case'
 require_relative 'shared_examples_for_has_identity'
 
 module KobzaCRM

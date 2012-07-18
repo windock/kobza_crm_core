@@ -1,6 +1,6 @@
-require 'kobza_crm/email_address'
-require 'kobza_crm/web_page_address'
-require 'kobza_crm/customer_role'
+require 'kobza_crm/domain/email_address'
+require 'kobza_crm/domain/web_page_address'
+require 'kobza_crm/domain/customer_role'
 
 require 'kobza_crm/persistence/customer_role_mapper'
 require 'kobza_crm/persistence/customer_service_representative_role_mapper'

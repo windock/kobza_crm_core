@@ -1,4 +1,4 @@
-require 'kobza_crm/customer_role'
+require 'kobza_crm/domain/customer_role'
 require_relative 'shared_examples_for_party_role'
 
 module KobzaCRM

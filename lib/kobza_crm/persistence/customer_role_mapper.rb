@@ -1,5 +1,5 @@
 require 'kobza_crm/no_public_new'
-require 'kobza_crm/customer_role'
+require 'kobza_crm/domain/customer_role'
 require 'mongobzar/mapper/inheritance_mapper'
 
 module KobzaCRM

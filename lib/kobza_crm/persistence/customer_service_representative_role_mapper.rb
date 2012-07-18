@@ -1,4 +1,4 @@
-require 'kobza_crm/customer_service_representative_role'
+require 'kobza_crm/domain/customer_service_representative_role'
 require 'kobza_crm/no_public_new'
 require 'mongobzar'
 

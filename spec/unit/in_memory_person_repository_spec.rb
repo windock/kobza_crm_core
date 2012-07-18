@@ -1,5 +1,5 @@
 require 'kobza_crm/in_memory_person_repository'
-require 'kobza_crm/person'
+require 'kobza_crm/domain/person'
 require_relative 'shared_examples_for_in_memory_party_repository'
 
 module KobzaCRM

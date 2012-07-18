@@ -1,4 +1,4 @@
-require 'kobza_crm/person'
+require 'kobza_crm/domain/person'
 require 'kobza_crm/no_public_new'
 require 'kobza_crm/persistence/party_mapper'
 

@@ -1,4 +1,4 @@
-require 'kobza_crm/person'
+require 'kobza_crm/domain/person'
 require_relative 'shared_examples_for_party'
 
 module KobzaCRM

@@ -1,4 +1,4 @@
-require 'kobza_crm/person'
+require 'kobza_crm/domain/person'
 
 module KobzaCRM
   class AddPersonTransaction

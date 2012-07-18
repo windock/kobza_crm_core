@@ -1,4 +1,4 @@
-require 'kobza_crm/web_page_address'
+require 'kobza_crm/domain/web_page_address'
 
 module KobzaCRM
   class AddWebPageAddressTransaction

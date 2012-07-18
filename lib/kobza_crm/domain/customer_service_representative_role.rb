@@ -1,4 +1,4 @@
-require 'kobza_crm/party_role'
+require 'kobza_crm/domain/party_role'
 
 module KobzaCRM
   class CustomerServiceRepresentativeRole < PartyRole

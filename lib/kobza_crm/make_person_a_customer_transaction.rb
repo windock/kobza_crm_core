@@ -1,4 +1,4 @@
-require 'kobza_crm/customer_role'
+require 'kobza_crm/domain/customer_role'
 require 'kobza_crm/make_person_role_transaction'
 
 module KobzaCRM

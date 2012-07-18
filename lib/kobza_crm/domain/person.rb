@@ -1,4 +1,4 @@
-require 'kobza_crm/party'
+require 'kobza_crm/domain/party'
 
 module KobzaCRM
   class Person < Party
