@@ -1,9 +1,13 @@
 require_relative 'shared_examples_for_in_memory_repository'
+require 'kobza_crm/persistence/memory/party_repository'
+require 'kobza_crm/domain/person'
+require 'kobza_crm/domain/customer_role'
 
-module KobzaCRM module Test
-  shared_examples 'an in memory party repository' do
-    let(:domain_object) { party }
-    let(:other_domain_object) { other_party }
+module KobzaCRM module Persistence module Memory module Test
+  describe PartyRepository do
+    let(:domain_object) { Domain::Person.new('p1') }
+    let(:other_domain_object) { Domain::Person.new('p2') }
+    let(:party) { domain_object }
 
     include_context 'an in memory repository'
     it_behaves_like 'an in memory repository'
@@ -11,6 +15,7 @@ module KobzaCRM module Test
     def update_domain_object(party)
       party.name = 'New name'
     end
+    subject { PartyRepository.instance }
 
     describe '#update' do
       context 'when a party was already added' do
@@ -36,4 +41,4 @@ module KobzaCRM module Test
       end
     end
   end
-end end
+end end end end

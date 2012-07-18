@@ -6,12 +6,12 @@ module KobzaCRM module Service module Test
   # so that I may keep track of it
   describe AddOrganizationTransaction do
     before do
-      @organization_repository = Persistence::Memory::OrganizationRepository.instance
+      @organization_repository = Persistence::Memory::Repository.instance
     end
 
     let(:sample_name) { 'Orga' }
 
-    it 'adds Organization to OrganizationRepository' do
+    it 'adds Organization to Repository' do
       t = AddOrganizationTransaction.new(sample_name, @organization_repository)
       t.execute
 

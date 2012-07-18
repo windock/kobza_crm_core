@@ -1,4 +1,5 @@
 require 'kobza_crm'
+require 'kobza_crm/persistence/memory/party_repository'
 require 'mongobzar'
 
 module KobzaCRM module Service module Test
@@ -7,11 +8,11 @@ module KobzaCRM module Service module Test
   # so that I may organize Communications with him
   describe OpenCustomerServiceCaseTransaction do
     let(:customer_service_case_repository) do
-      Persistence::Memory::CustomerServiceCaseRepository.instance
+      Persistence::Memory::PartyRepository.instance
     end
 
     before do
-      person_repository = Persistence::Memory::PersonRepository.instance
+      person_repository = Persistence::Memory::PartyRepository.instance
       t = AddPersonTransaction.new('Bob', person_repository)
       t.execute
       @person = t.person
@@ -23,7 +24,7 @@ module KobzaCRM module Service module Test
     let(:brief_description) { 'Sample description' }
     let(:raised_by) { @person }
 
-    it 'adds CustomerServiceCase to CustomerServiceCaseRepository' do
+    it 'adds CustomerServiceCase to Repository' do
       pending
       t = OpenCustomerServiceCaseTransaction.new(
         title, brief_description, raised_by,

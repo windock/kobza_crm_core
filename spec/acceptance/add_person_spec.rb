@@ -7,11 +7,11 @@ module KobzaCRM module Service module Test
   # so that I may keep track of it
   describe AddPersonTransaction do
     let(:person_repository) do
-      Persistence::Memory::PersonRepository.instance
+      Persistence::Memory::Repository.instance
     end
     let(:sample_name) { 'Bob' }
 
-    it 'adds Person to PersonRepository' do
+    it 'adds Person to Repository' do
       t = AddPersonTransaction.new(sample_name, person_repository)
       t.execute
 
