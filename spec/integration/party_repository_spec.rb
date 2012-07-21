@@ -1,7 +1,18 @@
+require 'kobza_crm/domain/email_address'
+require 'kobza_crm/domain/web_page_address'
+require 'kobza_crm/domain/customer_role'
+
 require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
-require_relative 'shared_examples_for_mongo_party_repository'
+
+require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
+
+require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
+
+require_relative 'shared_examples_for_mongo_repository'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo module Test
   shared_examples 'party repository' do
@@ -10,8 +21,6 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
     let(:assembler_class) { OrganizationAssembler }
 
     let(:collection_name) { 'parties' }
-
-    it_behaves_like 'a mongo party repository'
 
     subject { repository }
     let(:repository) do
