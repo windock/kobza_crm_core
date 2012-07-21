@@ -5,22 +5,20 @@ module KobzaCRM module Service module Test
   # I want to add Organization
   # so that I may keep track of it
   describe AddOrganizationTransaction do
-    before do
-      @organization_repository = Infrastructure::Persistence::Memory::PartyRepository.new
-    end
+    let(:organization_repository) { Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository }
 
     let(:sample_name) { 'Orga' }
 
     it 'adds Organization to Repository' do
-      t = AddOrganizationTransaction.new(sample_name, @organization_repository)
+      t = AddOrganizationTransaction.new(sample_name, organization_repository)
       t.execute
 
-      orga = @organization_repository.all.first
+      orga = organization_repository.all.first
       orga.name.should == sample_name
     end
 
     it 'provides organization with set id after execution' do
-      t = AddOrganizationTransaction.new(sample_name, @organization_repository)
+      t = AddOrganizationTransaction.new(sample_name, organization_repository)
       t.execute
 
       organization = t.organization

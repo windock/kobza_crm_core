@@ -7,11 +7,12 @@ module KobzaCRM module Service module Test
   # so that I may organize Communications with him
   describe OpenServiceCaseTransaction do
     let(:service_case_repository) do
-      Infrastructure::Persistence::Memory::PartyRepository.new
+      #FIXME:
+      Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository
     end
 
     before do
-      person_repository = Infrastructure::Persistence::Memory::PartyRepository.new
+      person_repository = Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository
       t = AddPersonTransaction.new('Bob', person_repository)
       t.execute
       @person = t.person

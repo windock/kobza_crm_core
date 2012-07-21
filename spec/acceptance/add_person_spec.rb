@@ -7,7 +7,7 @@ module KobzaCRM module Service module Test
   # so that I may keep track of it
   describe AddPersonTransaction do
     let(:person_repository) do
-      Infrastructure::Persistence::Memory::PartyRepository.new
+      Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository
     end
     let(:sample_name) { 'Bob' }
 

@@ -3,12 +3,6 @@ require 'mongobzar/assembler/inheritance_assembler'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
   class CustomerRoleAssembler
-    def self.instance
-      Mongobzar::Assembler::InheritanceAssembler.new(
-        Domain::CustomerRole, 'customer',
-        Mongobzar::Assembler::EntityAssembler.new(new))
-    end
-
     def build_new(dto)
       Domain::CustomerRole.new
     end

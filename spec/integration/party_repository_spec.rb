@@ -1,16 +1,8 @@
 require 'kobza_crm/domain/email_address'
 require 'kobza_crm/domain/web_page_address'
 require 'kobza_crm/domain/customer_role'
-
-require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
-require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
-
-require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
-require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
-
-require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
-require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/repository_factory'
 
 require_relative 'shared_examples_for_mongo_repository'
 
@@ -18,40 +10,13 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
   shared_examples 'party repository' do
     include_context 'a mongo repository context'
 
-    let(:assembler_class) { OrganizationAssembler }
 
     let(:collection_name) { 'parties' }
 
     subject { repository }
     let(:repository) do
-      role_repository = Mongobzar::Repository::DependentRepository.new(database_name, 'party_roles')
-      role_repository.assembler = Mongobzar::Assembler::PolymorphicAssembler.new([
-        CustomerRoleAssembler.instance,
-        CustomerServiceRepresentativeRoleAssembler.instance
-      ])
-      role_repository.foreign_key = 'party_id'
-
-      repository = PartyRepository.new(database_name, collection_name)
-      repository.role_repository = role_repository
-      address_assembler = Mongobzar::Assembler::PolymorphicAssembler.new([
-        EmailAddressAssembler.instance,
-        WebPageAddressAssembler.instance
-      ])
-
-      organization_assembler = OrganizationAssembler.instance(
-        address_assembler,
-        role_repository
-      )
-      person_assembler = PersonAssembler.instance(
-        address_assembler,
-        role_repository
-      )
-      party_assembler = Mongobzar::Assembler::PolymorphicAssembler.new([
-        Mongobzar::Assembler::InheritanceAssembler.new(Domain::Organization, 'organization', organization_assembler),
-        Mongobzar::Assembler::InheritanceAssembler.new(Domain::Person, 'person', person_assembler)
-      ])
-      repository.assembler = party_assembler
-      repository
+      repository_factory = RepositoryFactory.new(database_name)
+      repository_factory.party_repository
     end
 
     let(:domain_object) { party }
