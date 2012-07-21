@@ -2,31 +2,30 @@ require 'kobza_crm'
 require 'mongobzar'
 
 module KobzaCRM module Service module Test
-  # As a user,
-  # I want to add a person,
-  # so that I may keep track of it
-  describe AddPersonTransaction do
-    let(:person_repository) do
+  describe PartyService do
+    let(:party_repository) do
       Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository
     end
+
+    subject { PartyService.new(party_repository) }
     let(:sample_name) { 'Bob' }
 
-    it 'adds Person to Repository' do
-      t = AddPersonTransaction.new(sample_name, person_repository)
-      t.execute
+    # As a user,
+    # I want to add a person,
+    # so that I may keep track of it
+    describe '#add_person' do
+      it 'adds Person to PartyRepository' do
+        subject.add_person(sample_name)
 
-      person = person_repository.all.first
-      person.name.should == sample_name
-    end
+        person = party_repository.all.first
+        person.name.should == sample_name
+      end
 
-    it 'provides person with set id after execution' do
-      t = AddPersonTransaction.new(sample_name, person_repository)
-
-      t.execute
-      person = t.person
-
-      person.id.should_not be_nil
-      person.name.should == sample_name
+      it 'returns added person with set id' do
+        person = subject.add_person(sample_name)
+        person.id.should_not be_nil
+        person.name.should == sample_name
+      end
     end
   end
 end end end
