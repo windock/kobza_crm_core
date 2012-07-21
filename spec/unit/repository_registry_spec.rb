@@ -1,6 +1,6 @@
-require 'kobza_crm/repository_registry'
+require 'kobza_crm/infrastructure/repository_registry'
 
-module KobzaCRM module Test
+module KobzaCRM module Infrastructure module Test
   describe RepositoryRegistry do
     it 'locates person repository' do
       person_repository = stub
@@ -8,4 +8,4 @@ module KobzaCRM module Test
       RepositoryRegistry.person_repository.should == person_repository
     end
   end
-end end
+end end end

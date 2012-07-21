@@ -1,6 +1,6 @@
-require 'kobza_crm/persistence/memory/repository'
+require 'kobza_crm/infrastructure/persistence/memory/repository'
 
-module KobzaCRM module Persistence module Memory
+module KobzaCRM module Infrastructure module Persistence module Memory
   class PartyRepository < Repository
     def update(entity)
       entity.roles.select do |role|
@@ -12,4 +12,4 @@ module KobzaCRM module Persistence module Memory
       super
     end
   end
-end end end
+end end end end

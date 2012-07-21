@@ -1,9 +1,9 @@
 require_relative 'shared_examples_for_in_memory_repository'
-require 'kobza_crm/persistence/memory/party_repository'
+require 'kobza_crm/infrastructure/persistence/memory/party_repository'
 require 'kobza_crm/domain/person'
 require 'kobza_crm/domain/customer_role'
 
-module KobzaCRM module Persistence module Memory module Test
+module KobzaCRM module Infrastructure module Persistence module Memory module Test
   describe PartyRepository do
     let(:domain_object) { Domain::Person.new('p1') }
     let(:other_domain_object) { Domain::Person.new('p2') }
@@ -41,4 +41,4 @@ module KobzaCRM module Persistence module Memory module Test
       end
     end
   end
-end end end end
+end end end end end

@@ -1,4 +1,4 @@
-module KobzaCRM
+module KobzaCRM module Infrastructure
   class RepositoryRegistry
     def self.person_repository=(person_repository)
       @person_repository = person_repository
@@ -8,4 +8,4 @@ module KobzaCRM
       @person_repository
     end
   end
-end
+end end

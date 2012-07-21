@@ -1,6 +1,6 @@
 require 'mongobzar/utility/bson_id_generator'
 
-module KobzaCRM module Persistence module Memory
+module KobzaCRM module Infrastructure module Persistence module Memory
   class Repository
     attr_accessor :id_generator
 
@@ -34,4 +34,4 @@ module KobzaCRM module Persistence module Memory
       attr_reader :entities
 
   end
-end end end
+end end end end

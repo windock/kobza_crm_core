@@ -1,9 +1,9 @@
-require 'kobza_crm/persistence/mongo/organization_assembler'
-require 'kobza_crm/persistence/mongo/person_assembler'
-require 'kobza_crm/persistence/mongo/party_repository'
+require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
 require_relative 'shared_examples_for_mongo_party_repository'
 
-module KobzaCRM module Persistence module Mongo module Test
+module KobzaCRM module Infrastructure module Persistence module Mongo module Test
   shared_examples 'party repository' do
     include_context 'a mongo repository context'
 
@@ -275,4 +275,4 @@ module KobzaCRM module Persistence module Mongo module Test
       it_behaves_like 'party repository'
     end
   end
-end end end end
+end end end end end

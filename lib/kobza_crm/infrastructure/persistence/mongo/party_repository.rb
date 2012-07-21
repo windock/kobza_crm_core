@@ -1,6 +1,6 @@
 require 'mongobzar'
 
-module KobzaCRM module Persistence module Mongo
+module KobzaCRM module Infrastructure module Persistence module Mongo
   class PartyRepository < Mongobzar::Repository::Repository
     def insert(party)
       super
@@ -19,4 +19,4 @@ module KobzaCRM module Persistence module Mongo
 
     attr_accessor :role_repository
   end
-end end end
+end end end end

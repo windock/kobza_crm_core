@@ -1,7 +1,7 @@
 require 'kobza_crm/domain/customer_role'
 require 'mongobzar/assembler/inheritance_assembler'
 
-module KobzaCRM module Persistence module Mongo
+module KobzaCRM module Infrastructure module Persistence module Mongo
   class CustomerRoleAssembler
     def self.instance
       Mongobzar::Assembler::InheritanceAssembler.new(
@@ -21,4 +21,4 @@ module KobzaCRM module Persistence module Mongo
       dto['customer_value'] = role.customer_value
     end
   end
-end end end
+end end end end

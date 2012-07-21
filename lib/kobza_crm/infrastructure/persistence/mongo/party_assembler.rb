@@ -1,6 +1,6 @@
 require 'mongobzar'
 
-module KobzaCRM module Persistence module Mongo
+module KobzaCRM module Infrastructure module Persistence module Mongo
   class PartyAssembler < Mongobzar::Assembler::Assembler
     def initialize(address_assembler, role_assembler)
       @address_assembler = address_assembler
@@ -30,4 +30,4 @@ module KobzaCRM module Persistence module Mongo
       attr_reader :role_assembler
 
   end
-end end end
+end end end end

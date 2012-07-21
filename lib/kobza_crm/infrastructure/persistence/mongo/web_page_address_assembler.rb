@@ -1,6 +1,6 @@
 require 'kobza_crm/domain/web_page_address'
 
-module KobzaCRM module Persistence module Mongo
+module KobzaCRM module Infrastructure module Persistence module Mongo
   class WebPageAddressAssembler < Mongobzar::Assembler::Assembler
     def self.instance
       Mongobzar::Assembler::InheritanceAssembler.new(
@@ -18,4 +18,4 @@ module KobzaCRM module Persistence module Mongo
     end
   end
 
-end end end
+end end end end

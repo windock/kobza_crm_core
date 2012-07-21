@@ -2,14 +2,14 @@ require 'kobza_crm/domain/email_address'
 require 'kobza_crm/domain/web_page_address'
 require 'kobza_crm/domain/customer_role'
 
-require 'kobza_crm/persistence/mongo/customer_role_assembler'
-require 'kobza_crm/persistence/mongo/customer_service_representative_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
 
-require 'kobza_crm/persistence/mongo/email_address_assembler'
-require 'kobza_crm/persistence/mongo/web_page_address_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
 require_relative 'shared_examples_for_mongo_repository'
 
-module KobzaCRM module Persistence module Mongo module Test
+module KobzaCRM module Infrastructure module Persistence module Mongo module Test
   shared_examples 'a mongo party repository' do
     include_context 'a mongo repository context'
 
@@ -283,4 +283,4 @@ module KobzaCRM module Persistence module Mongo module Test
       end
     end
   end
-end end end end
+end end end end end
