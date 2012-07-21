@@ -11,7 +11,7 @@ require 'kobza_crm/service/add_person_transaction'
 require 'kobza_crm/service/add_organization_transaction'
 require 'kobza_crm/service/make_person_a_customer_transaction'
 require 'kobza_crm/service/make_person_a_customer_service_representative_transaction'
-require 'kobza_crm/service/open_customer_service_case_transaction'
+require 'kobza_crm/service/open_service_case_transaction'
 
 module KobzaCRM
   # Your code goes here...

@@ -3,10 +3,10 @@ require 'mongobzar'
 
 module KobzaCRM module Service module Test
   # As a CustomerServiceRepresentative
-  # I want to open CustomerServiceCase
+  # I want to open ServiceCase
   # so that I may organize Communications with him
-  describe OpenCustomerServiceCaseTransaction do
-    let(:customer_service_case_repository) do
+  describe OpenServiceCaseTransaction do
+    let(:service_case_repository) do
       Persistence::Memory::PartyRepository.new
     end
 
@@ -23,13 +23,13 @@ module KobzaCRM module Service module Test
     let(:brief_description) { 'Sample description' }
     let(:raised_by) { @person }
 
-    it 'adds CustomerServiceCase to Repository' do
-      t = OpenCustomerServiceCaseTransaction.new(
+    it 'adds ServiceCase to Repository' do
+      t = OpenServiceCaseTransaction.new(
         title, brief_description, raised_by,
-        customer_service_case_repository)
+        service_case_repository)
       t.execute
 
-      csc = customer_service_case_repository.all.first
+      csc = service_case_repository.all.first
       csc.title.should == title
       csc.brief_description.should == brief_description
       csc.raised_by.should == raised_by

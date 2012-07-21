@@ -1,5 +1,5 @@
 module KobzaCRM module Domain
-  class CustomerServiceCase
+  class ServiceCase
     attr_reader :brief_description, :raised_by
     attr_accessor :id
     attr_accessor :title
