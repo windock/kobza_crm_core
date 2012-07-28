@@ -1,12 +1,12 @@
 require 'kobza_crm/domain/person'
 require 'kobza_crm/domain/customer_role'
-require 'kobza_crm/infrastructure/persistence/mongo/role_repository'
+require 'kobza_crm/infrastructure/persistence/mongo/dependent_role_repository'
 require 'kobza_crm/infrastructure/persistence/mongo/repository_factory'
 
 require_relative 'shared_examples_for_mongo_repository'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo module Test
-  describe RoleRepository do
+  describe DependentRoleRepository do
     include_context 'a mongo repository context'
     let(:party) do
       Domain::Person.new('person_name1')
@@ -40,10 +40,6 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
           end
 
           context 'given role is added' do
-            describe 'asdf' do
-              it 'works' do
-              end
-            end
             #before do
               #repository.insert(role)
             #end
