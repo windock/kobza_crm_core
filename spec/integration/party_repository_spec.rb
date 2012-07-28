@@ -124,17 +124,15 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
       end
     end
 
-    describe '#add' do
+    describe '#insert' do
       context 'without associations' do
         before do
           repository.insert(party)
         end
 
-        describe 'persists it as' do
-          describe 'document' do
-            subject { document }
-            its(['name']) { should == sample_name }
-          end
+        describe 'persists it as document' do
+          subject { document }
+          its(['name']) { should == sample_name }
         end
       end
 
