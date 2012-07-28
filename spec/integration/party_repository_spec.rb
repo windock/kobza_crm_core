@@ -10,7 +10,6 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
   shared_examples 'party repository' do
     include_context 'a mongo repository context'
 
-
     let(:collection_name) { 'parties' }
 
     subject { repository }

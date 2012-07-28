@@ -1,5 +1,9 @@
 require 'mongobzar'
 
+require 'kobza_crm/infrastructure/persistence/mongo/service_case_repository'
+require 'kobza_crm/infrastructure/persistence/mongo/role_repository'
+require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
+
 require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
 
@@ -19,7 +23,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
     end
 
     def role_repository
-      role_repository = Mongobzar::Repository::DependentRepository.new(
+      role_repository = RoleRepository.new(
         database_name, 'party_roles')
       role_repository.assembler = role_assembler
       role_repository.foreign_key = 'party_id'
