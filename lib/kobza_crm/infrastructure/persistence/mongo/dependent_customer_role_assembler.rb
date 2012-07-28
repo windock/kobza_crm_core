@@ -1,5 +1,4 @@
 require 'kobza_crm/domain/customer_role'
-require 'mongobzar/assembler/inheritance_assembler'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
   class DependentCustomerRoleAssembler
