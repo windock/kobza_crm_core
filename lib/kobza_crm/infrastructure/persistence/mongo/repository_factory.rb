@@ -7,8 +7,8 @@ require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
 require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
 
-require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
-require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/dependent_customer_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/dependent_customer_service_representative_role_assembler'
 
 require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
@@ -49,7 +49,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
       def customer_role_assembler
         Mongobzar::Assembler::InheritanceAssembler.new(
           Domain::CustomerRole, 'customer',
-          Mongobzar::Assembler::EntityAssembler.new(CustomerRoleAssembler.new))
+          Mongobzar::Assembler::EntityAssembler.new(DependentCustomerRoleAssembler.new))
       end
 
       def customer_service_representative_role_assembler
@@ -57,7 +57,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
           Domain::CustomerServiceRepresentativeRole,
           'customer_service_representative',
           Mongobzar::Assembler::EntityAssembler.new(
-            CustomerServiceRepresentativeRoleAssembler.new))
+            DependentCustomerServiceRepresentativeRoleAssembler.new))
       end
 
       def email_address_assembler

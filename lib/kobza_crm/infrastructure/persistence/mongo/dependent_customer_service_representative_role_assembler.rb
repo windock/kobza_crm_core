@@ -2,7 +2,7 @@ require 'kobza_crm/domain/customer_service_representative_role'
 require 'mongobzar'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
-  class CustomerServiceRepresentativeRoleAssembler < Mongobzar::Assembler::Assembler
+  class DependentCustomerServiceRepresentativeRoleAssembler < Mongobzar::Assembler::Assembler
     def build_new(dto)
       Domain::CustomerServiceRepresentativeRole.new
     end

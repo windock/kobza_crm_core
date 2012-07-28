@@ -2,7 +2,7 @@ require 'kobza_crm/domain/customer_role'
 require 'mongobzar/assembler/inheritance_assembler'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
-  class CustomerRoleAssembler
+  class DependentCustomerRoleAssembler
     def build_new(dto)
       Domain::CustomerRole.new
     end
