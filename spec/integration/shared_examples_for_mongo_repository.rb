@@ -29,7 +29,7 @@ module KobzaCRM module Persistence module Mongo module Test
       end
     end
 
-    describe '#add' do
+    describe '#insert' do
       context 'without associations' do
         before do
           subject.insert(domain_object)
