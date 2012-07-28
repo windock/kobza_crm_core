@@ -47,40 +47,40 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
       attr_reader :database_name
 
       def customer_role_assembler
-        Mongobzar::Assembler::InheritanceAssembler.new(
+        InheritanceAssembler.new(
           Domain::CustomerRole, 'customer',
-          Mongobzar::Assembler::EntityAssembler.new(DependentCustomerRoleAssembler.new))
+          EntityAssembler.new(DependentCustomerRoleAssembler.new))
       end
 
       def customer_service_representative_role_assembler
-        Mongobzar::Assembler::InheritanceAssembler.new(
+        InheritanceAssembler.new(
           Domain::CustomerServiceRepresentativeRole,
           'customer_service_representative',
-          Mongobzar::Assembler::EntityAssembler.new(
+          EntityAssembler.new(
             DependentCustomerServiceRepresentativeRoleAssembler.new))
       end
 
       def email_address_assembler
-        Mongobzar::Assembler::InheritanceAssembler.new(
+        InheritanceAssembler.new(
           Domain::EmailAddress, 'email',
-          Mongobzar::Assembler::ValueObjectAssembler.new(
+          ValueObjectAssembler.new(
             EmailAddressAssembler.new))
       end
 
       def web_page_address_assembler
-        Mongobzar::Assembler::InheritanceAssembler.new(
+        InheritanceAssembler.new(
           Domain::WebPageAddress, 'web_page',
-          Mongobzar::Assembler::ValueObjectAssembler.new(
+          ValueObjectAssembler.new(
             WebPageAddressAssembler.new))
       end
 
       def organization_assembler(address_assembler, role_assembler)
-        Mongobzar::Assembler::EntityAssembler.new(
+        EntityAssembler.new(
           OrganizationAssembler.new(address_assembler, role_assembler))
       end
 
       def person_assembler(address_assembler, role_assembler)
-        Mongobzar::Assembler::EntityAssembler.new(
+        EntityAssembler.new(
           PersonAssembler.new(address_assembler, role_assembler))
       end
 
@@ -115,7 +115,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
       end
 
       def service_case_assembler
-        Mongobzar::Assembler::EntityAssembler.new(
+        EntityAssembler.new(
           ServiceCaseAssembler.new(role_repository))
       end
   end
