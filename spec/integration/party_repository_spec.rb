@@ -13,9 +13,14 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
     let(:collection_name) { 'parties' }
 
     subject { repository }
+    let(:repository_factory) do
+      RepositoryFactory.new(database_name)
+    end
     let(:repository) do
-      repository_factory = RepositoryFactory.new(database_name)
       repository_factory.party_repository
+    end
+    let(:role_repository) do
+      repository_factory.role_repository
     end
 
     let(:domain_object) { party }
@@ -44,8 +49,10 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
       context 'given party is added with related' do
         context 'role' do
           before do
+            role_repository.clear_everything!
             party.add_role(role)
             repository.insert(party)
+            role_repository.insert(role)
           end
 
           let(:found_party) { repository.find(party.id) }
@@ -133,53 +140,6 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
         describe 'persists it as document' do
           subject { document }
           its(['name']) { should == sample_name }
-        end
-      end
-
-      context 'with role' do
-        before do
-          party.add_role(role)
-          repository.insert(party)
-        end
-
-        context 'CustomerServiceRepresentative' do
-          let(:role) do
-            Domain::CustomerServiceRepresentativeRole.new
-          end
-
-          let(:role_documents) { db['party_roles'].find.to_a }
-          let(:role_document) { role_documents.first }
-
-          describe 'it persists it in "party_roles" collection' do
-            subject { role_document }
-
-            it 'as 1 document' do
-              role_documents.size.should == 1
-            end
-
-            its(['type']) { should == 'customer_service_representative' }
-          end
-        end
-
-        context 'CustomerRole' do
-          let(:role) do
-            role = Domain::CustomerRole.new
-            role.customer_value = 4
-            role
-          end
-
-          let(:role_documents) { db['party_roles'].find.to_a }
-          let(:role_document) { role_documents.first }
-
-          describe 'it persists it in "party_roles" collection' do
-            subject { role_document }
-
-            it 'as 1 document' do
-              role_documents.size.should == 1
-            end
-            its(['type']) { should == 'customer' }
-            its(['customer_value']) { should == 4 }
-          end
         end
       end
 

@@ -2,9 +2,7 @@ require 'kobza_crm/domain/customer_role'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
   class CustomerRoleAssembler
-    def initialize(party_source)
-      @party_source = party_source
-    end
+    attr_writer :party_source
 
     def build_new(dto)
       Domain::CustomerRole.new

@@ -2,17 +2,18 @@ require 'mongobzar'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
   class PartyAssembler < Mongobzar::Assembler::Assembler
-    def initialize(address_source, role_source)
+    def initialize(address_source)
       @address_source = address_source
-      @role_source = role_source
     end
+
+    attr_writer :role_source
 
     def build_domain_object!(party, dto)
       address_source.build_domain_objects(dto['addresses']).each do |address|
         party.add_address(address)
       end
 
-      role_source.find_dependent_collection(party).each do|role|
+      role_source.find_for_party(party).each do|role|
         party.add_role(role)
       end
     end

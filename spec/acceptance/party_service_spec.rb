@@ -2,13 +2,17 @@ require 'kobza_crm'
 require 'mongobzar'
 
 module KobzaCRM module Service module Test
-  describe PartyService do
+  shared_examples 'party service' do
+    subject { PartyService.new(party_repository, role_repository) }
+    let(:sample_name) { 'Bob' }
+
     let(:party_repository) do
-      Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository
+      repository_factory.party_repository
     end
 
-    subject { PartyService.new(party_repository) }
-    let(:sample_name) { 'Bob' }
+    let(:role_repository) do
+      repository_factory.role_repository
+    end
 
     # As a user,
     # I want to add a person,
@@ -124,5 +128,29 @@ module KobzaCRM module Service module Test
         @role.id.should_not be_nil
       end
     end
+  end
+
+  describe PartyService do
+    context 'when working in-memory' do
+      let(:repository_factory) do
+        Infrastructure::Persistence::Memory::RepositoryFactory.new
+      end
+
+      it_behaves_like 'party service'
+    end
+
+    context 'when working with mongodb' do
+      let(:repository_factory) do
+        Infrastructure::Persistence::Mongo::RepositoryFactory.new(
+          'kobza_crm_test')
+      end
+      before do
+        repository_factory.party_repository.clear_everything!
+        repository_factory.role_repository.clear_everything!
+      end
+
+      it_behaves_like 'party service'
+    end
+
   end
 end end end

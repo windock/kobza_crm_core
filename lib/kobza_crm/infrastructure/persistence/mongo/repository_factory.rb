@@ -1,14 +1,16 @@
 require 'mongobzar'
 
 require 'kobza_crm/infrastructure/persistence/mongo/service_case_repository'
-require 'kobza_crm/infrastructure/persistence/mongo/dependent_role_repository'
+require 'kobza_crm/infrastructure/persistence/mongo/role_repository'
 require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
 
 require 'kobza_crm/infrastructure/persistence/mongo/organization_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/person_assembler'
 
-require 'kobza_crm/infrastructure/persistence/mongo/dependent_customer_role_assembler'
-require 'kobza_crm/infrastructure/persistence/mongo/dependent_customer_service_representative_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
+
+require 'kobza_crm/infrastructure/persistence/mongo/service_case_assembler'
 
 require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
@@ -20,45 +22,78 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
 
     def initialize(database_name)
       @database_name = database_name
-    end
 
-    def role_repository
-      role_repository = DependentRoleRepository.new(
+      @role_repository = RoleRepository.new(
         database_name, 'party_roles')
-      role_repository.assembler = role_assembler
-      role_repository.foreign_key = 'party_id'
-      role_repository
-    end
 
-    def party_repository
-      repository = PartyRepository.new(database_name, 'parties')
-      repository.role_repository = role_repository
-      repository.assembler = party_assembler
-      repository
-    end
+      @party_repository = PartyRepository.new(database_name, 'parties')
 
-    def service_case_repository
-      repository = ServiceCaseRepository.new(database_name, 'service_cases')
-      repository.assembler = service_case_assembler
-      repository
-    end
+      @service_case_repository = ServiceCaseRepository.new(
+        database_name, 'service_cases')
 
-    private
-      attr_reader :database_name
+      @customer_role_assembler_base = CustomerRoleAssembler.new
+      @customer_service_representative_role_assembler_base =
+        CustomerServiceRepresentativeRoleAssembler.new
 
-      def customer_role_assembler
-        InheritanceAssembler.new(
-          Domain::CustomerRole, 'customer',
-          EntityAssembler.new(DependentCustomerRoleAssembler.new))
-      end
+      @customer_role_assembler = InheritanceAssembler.new(
+        Domain::CustomerRole, 'customer',
+        EntityAssembler.new(@customer_role_assembler_base))
 
-      def customer_service_representative_role_assembler
+      @customer_service_representative_role_assembler =
         InheritanceAssembler.new(
           Domain::CustomerServiceRepresentativeRole,
           'customer_service_representative',
           EntityAssembler.new(
-            DependentCustomerServiceRepresentativeRoleAssembler.new))
-      end
+            @customer_service_representative_role_assembler_base))
+
+      @role_assembler = PolymorphicAssembler.new([
+        @customer_role_assembler,
+        @customer_service_representative_role_assembler
+      ])
+
+      @person_assembler_base = PersonAssembler.new(address_assembler)
+      @person_assembler = EntityAssembler.new(@person_assembler_base)
+
+      @organization_assembler_base = OrganizationAssembler.new(
+        address_assembler)
+      @organization_assembler = EntityAssembler.new(
+        @organization_assembler_base)
+
+      @party_assembler = PolymorphicAssembler.new([
+        InheritanceAssembler.new(
+          Domain::Organization, 'organization',
+            @organization_assembler),
+        InheritanceAssembler.new(
+          Domain::Person, 'person',
+            @person_assembler)
+      ])
+
+      @service_case_assembler_base = ServiceCaseAssembler.new
+      @service_case_assembler = EntityAssembler.new(
+        @service_case_assembler_base)
+
+      @role_repository.assembler = @role_assembler
+      @party_repository.assembler = @party_assembler
+      @service_case_repository.assembler = @service_case_assembler
+
+      @customer_role_assembler_base.party_source =
+        @party_repository
+
+      @customer_service_representative_role_assembler_base.party_source =
+        @party_repository
+
+      @person_assembler_base.role_source = @role_repository
+      @organization_assembler_base.role_source = @role_repository
+
+      @service_case_assembler_base.role_source = @role_repository
+    end
+
+    attr_reader :role_repository,
+      :party_repository,
+      :service_case_repository
+
+    private
+      attr_reader :database_name
 
       def email_address_assembler
         InheritanceAssembler.new(
@@ -74,49 +109,11 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
             WebPageAddressAssembler.new))
       end
 
-      def organization_assembler(address_assembler, role_assembler)
-        EntityAssembler.new(
-          OrganizationAssembler.new(address_assembler, role_assembler))
-      end
-
-      def person_assembler(address_assembler, role_assembler)
-        EntityAssembler.new(
-          PersonAssembler.new(address_assembler, role_assembler))
-      end
-
       def address_assembler
         PolymorphicAssembler.new([
           email_address_assembler,
           web_page_address_assembler
         ])
-      end
-
-      def party_assembler
-        PolymorphicAssembler.new([
-          InheritanceAssembler.new(
-            Domain::Organization, 'organization',
-              organization_assembler(
-                address_assembler,
-                role_repository)),
-          InheritanceAssembler.new(
-            Domain::Person, 'person',
-              person_assembler(
-                address_assembler,
-                role_repository
-              ))
-        ])
-      end
-
-      def role_assembler
-        PolymorphicAssembler.new([
-          customer_role_assembler,
-          customer_service_representative_role_assembler
-        ])
-      end
-
-      def service_case_assembler
-        EntityAssembler.new(
-          ServiceCaseAssembler.new(role_repository))
       end
   end
 end end end end

@@ -1,7 +1,8 @@
 module KobzaCRM module Service
   class PartyService
-    def initialize(party_repository)
+    def initialize(party_repository, role_repository)
       @party_repository = party_repository
+      @role_repository = role_repository
     end
 
     def add_person(name)
@@ -35,17 +36,17 @@ module KobzaCRM module Service
       role.customer_value = customer_value
       party = party_repository.find(party_id)
       party.add_role(role)
-      party_repository.update(party)
+      role_repository.insert(role)
     end
 
     def make_customer_service_representative(party_id)
       role = Domain::CustomerServiceRepresentativeRole.new
       party = party_repository.find(party_id)
       party.add_role(role)
-      party_repository.update(party)
+      role_repository.insert(role)
     end
 
     private
-      attr_reader :party_repository
+      attr_reader :party_repository, :role_repository
   end
 end end

@@ -2,9 +2,7 @@ require 'mongobzar'
 
 module KobzaCRM module Infrastructure module Persistence module Mongo
   class ServiceCaseAssembler < Mongobzar::Assembler::Assembler
-    def initialize(role_source)
-      @role_source = role_source
-    end
+    attr_writer :role_source
 
     def build_new(dto)
       role = role_source.find(dto['role_id'])

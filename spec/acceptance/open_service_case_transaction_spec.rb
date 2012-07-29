@@ -4,11 +4,19 @@ require 'mongobzar'
 module KobzaCRM module Service module Test
   describe ServiceCaseService do
     let(:sample_name) { 'Bob' }
-    let(:service_case_repository) { Infrastructure::Persistence::Memory::RepositoryFactory.new.service_case_repository }
+    let(:repository_factory) do
+      Infrastructure::Persistence::Memory::RepositoryFactory.new
+    end
+    let(:service_case_repository) do
+      repository_factory.service_case_repository
+    end
     let(:subject) { ServiceCaseService.new(service_case_repository) }
 
-    let(:party_repository) { Infrastructure::Persistence::Memory::RepositoryFactory.new.party_repository }
-    let(:party_service) { Service::PartyService.new(party_repository) }
+    let(:party_repository) { repository_factory.party_repository }
+    let(:role_repository) { repository_factory.role_repository }
+    let(:party_service) do
+      Service::PartyService.new(party_repository, role_repository)
+    end
 
     # As a CustomerServiceRepresentative
     # I want to open ServiceCase

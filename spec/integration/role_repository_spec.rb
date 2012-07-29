@@ -26,36 +26,13 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
     end
 
     let(:customer_service_representative_role) do
-      res = Domain::CustomerServiceRepresentativeRole.new
-      res
+      Domain::CustomerServiceRepresentativeRole.new
     end
 
     let(:repository_factory) { RepositoryFactory.new(database_name) }
 
-    let(:customer_role_assembler) do
-      InheritanceAssembler.new(
-        Domain::CustomerRole, 'customer',
-        EntityAssembler.new(CustomerRoleAssembler.new(party_repository)))
-    end
-
-    let(:customer_service_representative_role_assembler) do
-      InheritanceAssembler.new(
-        Domain::CustomerServiceRepresentativeRole, 'customer_service_representative',
-        EntityAssembler.new(CustomerServiceRepresentativeRoleAssembler.new(party_repository)))
-    end
-
-    let(:role_assembler) do
-      PolymorphicAssembler.new([
-        customer_role_assembler,
-        customer_service_representative_role_assembler
-      ])
-    end
-
     let(:repository) do
-      role_repository = RoleRepository.new(
-        database_name, 'party_roles')
-      role_repository.assembler = role_assembler
-      role_repository
+      repository_factory.role_repository
     end
 
     let(:party_repository) do

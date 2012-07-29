@@ -1,3 +1,5 @@
+require 'kobza_crm/domain/service_case'
+
 module KobzaCRM module Service
   class ServiceCaseService
     def initialize(service_case_repository)
