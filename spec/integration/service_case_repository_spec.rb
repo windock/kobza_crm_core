@@ -17,58 +17,82 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
     let(:repository) do
       repository_factory.service_case_repository
     end
-    let(:party_repository) do
-      repository_factory.party_repository
-    end
+    let(:party_repository) { repository_factory.party_repository }
+    let(:role_repository) { repository_factory.role_repository }
+
     subject { repository }
+    let(:role) { CustomerRole.new }
 
     let(:person) do
       person = Person.new('person-name1')
-      person.add_role(CustomerRole.new)
+      person.add_role(role)
       person
     end
-    #let(:customer) { CustomerRole.new }
 
     let(:service_case) { ServiceCase.new('title1', 'desc1', person.roles.first) }
     let(:service_case2) { ServiceCase.new('title2', 'desc2', person.roles.first) }
-    #it_behaves_like 'a mongo repository'
 
-    describe '#all' do
-      context 'given 2 service cases are added' do
-        before do
-          party_repository.insert(person)
+    context 'given there is a party with role persisted' do
+      before do
+        party_repository.clear_everything!
+        role_repository.clear_everything!
 
-          subject.insert(service_case)
-          subject.insert(service_case2)
-        end
+        party_repository.insert(person)
+        role_repository.insert(role)
+      end
 
-        it 'returns all of them loaded' do
-          r1 =  [service_case, service_case2]
-          pending
-          subject.all.should == [service_case, service_case2]
+      describe '#all' do
+        context 'given 2 service cases are inserted' do
+          before do
+            repository.insert(service_case)
+            repository.insert(service_case2)
+          end
+
+          it 'returns all of them loaded' do
+            repository.all.should == [service_case, service_case2]
+          end
         end
       end
-    end
 
-    describe '#insert' do
-      context 'without associations' do
+      describe '#find' do
+        context 'given a service case is inserted' do
+          before do
+            repository.insert(service_case)
+          end
+
+          describe 'finds service case by it\'s id and loads it' do
+            let(:found_service_case) { repository.find(service_case.id) }
+            subject { found_service_case }
+
+            its(:id) { should == service_case.id }
+            its(:title) { should == service_case.title }
+            its(:brief_description) { should == service_case.brief_description }
+            its(:raised_by) { should == service_case.raised_by }
+          end
+        end
+      end
+
+      describe '#insert' do
         before do
-          subject.insert(service_case)
+          repository.insert(service_case)
         end
 
         it 'updates id' do
           service_case.id.should be_kind_of(BSON::ObjectId)
         end
 
-        describe 'persists it as' do
+        describe 'persists it as document' do
           it 'single document' do
             documents.size.should == 1
           end
 
-          describe 'document' do
-            it 'with _id' do
-              document['_id'].should be_kind_of(BSON::ObjectId)
-            end
+          subject { document }
+          its(['_id']) { should be_kind_of(BSON::ObjectId) }
+
+          describe 'role_id' do
+            subject { document['role_id'] }
+            it { should be_kind_of(BSON::ObjectId) }
+            it { should == role.id }
           end
         end
       end

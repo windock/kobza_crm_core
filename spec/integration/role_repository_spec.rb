@@ -120,6 +120,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
           context 'where role is CustomerRole' do
             let(:role) { customer_role }
 
+            its(['_id']) { should be_kind_of(BSON::ObjectId) }
             its(['type']) { should == 'customer' }
             its(['party_id']) { should == party.id }
             its(['customer_value']) { should == customer_value }
@@ -128,6 +129,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
           context 'where role is CustomerServiceRepresentativeRole' do
             let(:role) { customer_service_representative_role }
 
+            its(['_id']) { should be_kind_of(BSON::ObjectId) }
             its(['type']) { should == 'customer_service_representative' }
             its(['party_id']) { should == party.id }
           end

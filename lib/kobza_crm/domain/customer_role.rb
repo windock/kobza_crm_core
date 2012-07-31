@@ -7,5 +7,11 @@ module KobzaCRM module Domain
     def initialize
       @name = 'customer'
     end
+
+    def ==(o)
+      id == o.id &&
+      party == o.party &&
+      customer_value == o.customer_value
+    end
   end
 end end
