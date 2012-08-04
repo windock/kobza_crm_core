@@ -1,7 +1,6 @@
 require 'kobza_crm/domain/email_address'
 require 'kobza_crm/domain/web_page_address'
 require 'kobza_crm/domain/customer_role'
-require 'kobza_crm/infrastructure/persistence/mongo/party_repository'
 require 'kobza_crm/infrastructure/persistence/mongo/repository_factory'
 
 require_relative 'shared_examples_for_mongo_repository'
@@ -159,7 +158,7 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
         describe 'it persists it' do
           subject { web_address_documents[0] }
           it 'as 1 embedded document' do
-            web_address_documents.size.should == 1
+            web_address_documents.should have(1).items
           end
           its(['url']) { should == sample_url }
           its(['type']) { should == 'web_page' }

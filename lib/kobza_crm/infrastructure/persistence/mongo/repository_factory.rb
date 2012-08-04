@@ -11,6 +11,7 @@ require 'kobza_crm/infrastructure/persistence/mongo/customer_role_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/customer_service_representative_role_assembler'
 
 require 'kobza_crm/infrastructure/persistence/mongo/service_case_assembler'
+require 'kobza_crm/infrastructure/persistence/mongo/communication_thread_assembler'
 
 require 'kobza_crm/infrastructure/persistence/mongo/email_address_assembler'
 require 'kobza_crm/infrastructure/persistence/mongo/web_page_address_assembler'
@@ -30,6 +31,10 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
 
       @service_case_repository = ServiceCaseRepository.new(
         database_name, 'service_cases')
+
+      @communication_thread_repository = Mongobzar::Repository::DependentRepository.new(
+        database_name, 'communication_threads')
+      @communication_thread_repository.foreign_key = 'service_case_id'
 
       @customer_role_assembler_base = CustomerRoleAssembler.new
       @customer_service_representative_role_assembler_base =
@@ -72,9 +77,16 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
       @service_case_assembler = EntityAssembler.new(
         @service_case_assembler_base)
 
+      @communication_thread_assembler_base = CommunicationThreadAssembler.new
+      @communication_thread_assembler = EntityAssembler.new(
+        @communication_thread_assembler_base)
+
       @role_repository.assembler = @role_assembler
       @party_repository.assembler = @party_assembler
       @service_case_repository.assembler = @service_case_assembler
+      @communication_thread_repository.assembler = @communication_thread_assembler
+      @service_case_repository.communication_thread_repository =
+        @communication_thread_repository
 
       @customer_role_assembler_base.party_source =
         @party_repository
@@ -86,6 +98,8 @@ module KobzaCRM module Infrastructure module Persistence module Mongo
       @organization_assembler_base.role_source = @role_repository
 
       @service_case_assembler_base.role_source = @role_repository
+      @service_case_assembler_base.communication_threads_source =
+        @communication_thread_repository
     end
 
     attr_reader :role_repository,

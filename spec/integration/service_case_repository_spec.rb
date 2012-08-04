@@ -29,8 +29,12 @@ module KobzaCRM module Infrastructure module Persistence module Mongo module Tes
       person
     end
 
-    let(:service_case) { ServiceCase.new('title1', 'desc1', person.roles.first) }
-    let(:service_case2) { ServiceCase.new('title2', 'desc2', person.roles.first) }
+    let(:service_case) do
+      ServiceCase.new('title1', 'desc1', person.roles.first)
+    end
+    let(:service_case2) do
+      ServiceCase.new('title2', 'desc2', person.roles.first)
+    end
 
     context 'given there is a party with role persisted' do
       before do

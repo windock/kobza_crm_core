@@ -13,15 +13,41 @@ module KobzaCRM module Domain module Test
       ServiceCase.new(
         title, brief_description, raised_by)
     end
+    let(:service_case) { new_service_case }
 
     subject do
       new_service_case
     end
 
+    describe 'starts communication thread' do
+      let(:topic_name) { 'Topic1' }
+      let(:brief_description) { 'Desc1' }
+
+      before do
+        service_case.start_communication_thread(topic_name,
+                                                brief_description)
+      end
+
+      subject { service_case.communication_threads.first }
+
+      its(:brief_description) { should == brief_description }
+      its(:topic_name) { should == topic_name }
+    end
+
+    describe 'communication threads may be added' do
+      let(:threads) { [stub, stub] }
+      before do
+        service_case.add_communication_thread(threads[0])
+        service_case.add_communication_thread(threads[1])
+      end
+
+      subject { service_case }
+      its(:communication_threads) { should have(2).items }
+    end
+
     it 'allows change of title' do
-      title = 'other title'
-      subject.title = title
-      subject.title.should == title
+      subject.title = 'other title'
+      subject.title.should == 'other title'
     end
 
     it 'may be created, given title, brief_description and raised_by' do

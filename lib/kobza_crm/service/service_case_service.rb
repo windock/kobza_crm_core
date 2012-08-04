@@ -6,9 +6,17 @@ module KobzaCRM module Service
       @service_case_repository = service_case_repository
     end
 
-    def open(title, brief_description, raised_by)
+    def open_service_case(title, brief_description, raised_by)
       sc = Domain::ServiceCase.new(title, brief_description, raised_by)
       service_case_repository.insert(sc)
+    end
+
+    def start_communication_thread(service_case_id, topic_name,
+                                   brief_description)
+      service_case = service_case_repository.find(service_case_id)
+      service_case.start_communication_thread(topic_name,
+                                              brief_description)
+      service_case_repository.update(service_case)
     end
 
     private
